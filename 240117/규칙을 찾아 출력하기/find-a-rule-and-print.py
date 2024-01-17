@@ -16,6 +16,17 @@ for i in range(n):
         print()
 
 '''
+for i in range(n):
+    for j in range(n):
+        if i > j or i == 0 or j == n-1:
+            print('*', end=' ')
+        else:
+            print(' ', end=' ')
+    print()
+'''
+
+
+'''
 i   
 0   0 space
 1   0 star 3 space
