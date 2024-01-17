@@ -1,10 +1,7 @@
 n = int(input())
 
-input_n = n
 
-for i in range(input_n):
-    for j in range(input_n):
-        print(n, end=' ')
-        n -= 1
+for i in range(n):
+    for j in range(n):
+        print(n-j, end=' ')
     print()
-    n = input_n
