@@ -1,7 +1,7 @@
-arr = []
-
-for _ in range(4):
-    arr.append(list(map(int,input().split())))
+arr = [
+    list(map(int,input().split()))
+    for _ in range(4)
+]
 
 result = 0
 
