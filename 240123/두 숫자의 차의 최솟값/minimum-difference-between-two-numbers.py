@@ -2,10 +2,12 @@ n = int(input())
 
 mylist = list(map(int,input().split()))
 
-minVal = 100
+# 오름차순으로 주어지므로 인접한 두 숫자의 차만 고려하면 된다.
 
-for i in range(n):
-    for j in range(i+1,n):
-        minVal = min(abs(mylist[i]-mylist[j]),minVal)
+min_val = mylist[1] - mylist[0]
 
-print(minVal)
+for i in range(2,n):
+    if min_val > mylist[i] - mylist[i-1]:
+        min_val = mylist[i] - mylist[i-1]
+
+print(min_val)
