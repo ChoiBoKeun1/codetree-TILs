@@ -6,6 +6,6 @@ minVal = 100
 
 for i in range(n):
     for j in range(i+1,n):
-        minVal = min(abs(i-j),minVal)
+        minVal = min(abs(mylist[i]-mylist[j]),minVal)
 
 print(minVal)
