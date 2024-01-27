@@ -4,7 +4,7 @@ B = input()
 AB = A + B
 BA = B + A
 
-if AB[0]==BA[0] and AB[1]==BA[1]:
+if AB == BA:
     print('true')
 else:
     print('false')
