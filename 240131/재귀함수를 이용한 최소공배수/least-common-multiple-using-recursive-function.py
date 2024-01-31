@@ -1,11 +1,18 @@
 n = int(input())
 arr = list(map(int,input().split()))
 
-    
+def gcd(a,b):
+    if b == 0:
+        return a
+    else: 
+        return gcd(b, a % b)
 
-mul = 1
-for i in arr:
-    if mul % i != 0:
-        mul *= i
+def lcm(a,b):
+    return int((a * b) / gcd(a,b))
 
-print(mul)
+a = arr[0]
+
+for i in range(n-1):
+    a = lcm(a,arr[i+1])
+
+print(a)
