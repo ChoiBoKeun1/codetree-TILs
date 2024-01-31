@@ -7,6 +7,7 @@ def func(a,b):
     else:
         a += 10
         b *= 2
-    print(a,b)
     
-func(a,b)
+    return a,b
+    
+a,b = func(a,b)
