@@ -11,3 +11,5 @@ def func(a,b):
     return a,b
     
 a,b = func(a,b)
+
+print(a,b)
