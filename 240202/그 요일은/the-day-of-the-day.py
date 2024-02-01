@@ -24,14 +24,11 @@ else:
 if day in day_of_week:
     diff = day_of_week.index(day)
 
-print(days)
 if days < 0:
     print(0)
 else:
     cnt = days // 7
-    print(cnt)
     remainder = days % 7
-    print(remainder)
-    if remainder >= diff:
+    if remainder > diff:
         cnt += 1
     print(cnt)
