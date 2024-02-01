@@ -29,6 +29,6 @@ days -= diff
 if days < 0:
     print(0)
 else:
-    cnt = 1
+    cnt = 0
     cnt += days // 7
     print(cnt)
