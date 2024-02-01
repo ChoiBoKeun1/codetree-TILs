@@ -21,7 +21,8 @@ if day in day_of_week:
 
 days -= diff
 
-cnt = days // 7
-remainder = days % 7
+cnt = 1
 
-print(cnt + 1)
+cnt += days // 7
+
+print(cnt)
