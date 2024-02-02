@@ -1,3 +1,4 @@
+'''
 a,b = map(int,input().split())
 n = int(input())
 
@@ -39,7 +40,7 @@ digits = []
 # 10진수로 변환
 num = 0
 for ch in n:
-    num = num * a + (ord(ch) - ord('0'))
+    num = num * a + (int(ch))
 
 # b진수로 변환
 while True:
@@ -53,4 +54,3 @@ while True:
 # 진수 배열을 뒤집어 b진수 출력
 for digit in digits[::-1]:
     print(digit, end='')
-'''
