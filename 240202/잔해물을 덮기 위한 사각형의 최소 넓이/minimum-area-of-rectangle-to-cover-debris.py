@@ -7,7 +7,7 @@ rect2 = tuple(map(int,input().split()))
 x1,y1,x2,y2 = rect1
 a1,b1,a2,b2 = rect2
 
-if x1 > a1 and x2 < a2 and y1 > b1 and y2 < b2:
+if x1 >= a1 and x2 <= a2 and y1 >= b1 and y2 <= b2:
     print(0)
 else:
     check = [
