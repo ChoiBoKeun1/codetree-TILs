@@ -1,4 +1,3 @@
-'''
 a,b = map(int,input().split())
 n = int(input())
 
@@ -54,3 +53,4 @@ while True:
 # 진수 배열을 뒤집어 b진수 출력
 for digit in digits[::-1]:
     print(digit, end='')
+'''
