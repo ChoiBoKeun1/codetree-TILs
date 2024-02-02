@@ -10,6 +10,8 @@ for _ in range(n):
     num = int(num)
     if cur_dirc == 'L':
         if dirc == 'L':
+            if black == 1:
+                white += 1
             white += (num-1)
             cur_dirc = 'L'
         elif dirc == 'R':
@@ -19,6 +21,8 @@ for _ in range(n):
                 white = 0
             black += num
             cur_dirc = 'R'
+   
+   
     elif cur_dirc == 'R':
         if dirc == 'L':
             if black > num:
@@ -28,6 +32,8 @@ for _ in range(n):
             white += num
             cur_dirc = 'L'
         elif dirc == 'R':
+            if white == 1:
+                black += 1
             black += (num-1)
             cur_dirc = 'R'
     else:
