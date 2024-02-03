@@ -19,14 +19,18 @@ for _ in range(m):
         time_b += 1
 
 answer = 0
-for i in range(MAX_T):
-    if A[i] > B[i]:
-        isFirst[0] = True
-        isFirst[1] = False
-    elif A[i] < B[i]:
-        isFirst[0] = False
-        isFirst[1] = True
 
+i = 1
+while A[i] == B[i]:
+    i += 1
+if A[i] > B[i]:
+    isFirst[0] = True
+    isFirst[1] = False        
+elif A[i] < B[i]:
+    isFirst[0] = False
+    isFirst[1] = True
+
+for i in range(MAX_T):
     if A[i] != 0 and A[i] == B[i]:
         # A가 B를 추월
         if A[i+1] > B[i+1] and A[i-1] <= B[i-1] and isFirst[1]:
