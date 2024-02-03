@@ -1,5 +1,6 @@
+MAX_T = 1000000
 n,m = map(int,input().split())
-pos_A, pos_B = [0] * 1001, [0] * 1001
+pos_A, pos_B = [0] * (MAX_T+1), [0] * (MAX_T+1)
 
 time_a = 1
 for _ in range(n):
