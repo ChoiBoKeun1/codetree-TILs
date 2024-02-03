@@ -7,16 +7,16 @@ B = [0] * (MAX_T+1)
 time_a = 1
 for _ in range(n):
     cmd, t = tuple(input().split())
-        for _ in range(int(t)):
-            A[time_a] = A[time_a - 1] + (1 if cmd == 'R' else -1)
-            time_a += 1
+    for _ in range(int(t)):
+        A[time_a] = A[time_a - 1] + (1 if cmd == 'R' else -1)
+        time_a += 1
 
 time_b = 1
 for _ in range(m):
     cmd, t = tuple(input().split())
-        for _ in range(int(t)):
-            B[time_b] = B[time_b - 1] + (1 if cmd == 'R' else -1)
-            time_b += 1
+    for _ in range(int(t)):
+        B[time_b] = B[time_b - 1] + (1 if cmd == 'R' else -1)
+        time_b += 1
 
 answer = -1
 for i in range(1, time_a):
