@@ -6,14 +6,14 @@ for _ in range(n):
     v,t = map(int,input().split())
     for i in range(t):
         pos_A[time_a] = pos_A[time_a - 1] + v
-    time_a += 1
+        time_a += 1
 
 time_b = 1
 for _ in range(m):
     v,t = map(int,input().split())
     for i in range(t):
         pos_B[time_b] = pos_B[time_b - 1] + v
-    time_b += 1
+        time_b += 1
 
 honor = [0] * 1001
 
@@ -27,7 +27,7 @@ for i in range(time_a + 1):
     else:
         honor[i] = 3
 
-answer = 1
+answer = 0
 for i in range(1,time_a):
     if honor[i] != honor[i+1]:
         answer += 1
