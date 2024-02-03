@@ -17,11 +17,18 @@ for _ in range(m):
         pos_B[time_B] = pos_B[time_B - 1] + (1 if d == 'R' else -1)
         time_B += 1
 
+
+if time_A < time_B:
+    for i in range(time_A, time_B):
+        pos_A[i] = pos_A[time_A-1]
+elif time_A > time_B:
+    for i in range(time_B, time_A):
+        pos_B[i] = pos_B[time_B-1]
+
 ans = 0
-for i in range(1, time_A):
+max_time = max(time_A,time_B)
+for i in range(1, max_time):
     if pos_A[i] == pos_B[i] and pos_A[i-1] != pos_B[i-1]:
         ans += 1
+    
 print(ans)
-
-print(pos_A[:12])
-print(pos_B[:12])
