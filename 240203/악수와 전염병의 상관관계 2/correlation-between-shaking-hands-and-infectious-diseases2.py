@@ -12,7 +12,7 @@ for _ in range(T):
 shake_num = [0] * 101
 infect = [0] * 101
 
-infect[P] = True
+infect[P] = 1
 
 # 시간을 기준으로 오름차순 정렬
 # 빠른 시간이 앞으로 온다
