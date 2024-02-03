@@ -9,7 +9,7 @@ for i in range(n):
         else:
             cnt += 1
     else:
-        cnt = 1
+        cnt = 0
     ans = max(ans,cnt)
-    print(i, ans)
-#print(ans)
+
+print(ans)
