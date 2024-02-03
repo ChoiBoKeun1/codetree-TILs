@@ -27,8 +27,8 @@ for i in range(time_a + 1):
     else:
         honor[i] = 3
 
-answer = 0
-for i in range(1,time_a + 1):
+answer = 1
+for i in range(1,time_a):
     if honor[i] != honor[i+1]:
         answer += 1
 
