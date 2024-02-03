@@ -22,8 +22,11 @@ for _ in range(m):
         for _ in range(t):
             B.append(B[len(B)-1]-1)
 
-
+isAnswer = False
 for i in range(1,len(A)):
     if A[i] == B[i]:
         print(i)
+        isAnswer = True
         break
+if not isAnswer:
+    print(-1)
