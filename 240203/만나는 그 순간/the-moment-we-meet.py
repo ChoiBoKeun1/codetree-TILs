@@ -21,7 +21,7 @@ for _ in range(m):
 answer = -1
 for i in range(1, time_a):
     if A[i] == B[i]:
-        ans = i
+        answer = i
         break
 
-print(ans)
+print(answer)
