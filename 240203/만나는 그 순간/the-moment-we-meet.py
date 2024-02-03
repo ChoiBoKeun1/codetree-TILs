@@ -1,32 +1,27 @@
+MAX_T = 100000
+
 n,m = map(int,input().split())
-A = [0]
-B = [0]
+A = [0] * (MAX_T+1)
+B = [0] * (MAX_T+1)
 
+time_a = 1
 for _ in range(n):
-    cmd, t = map(str,input().split())
-    t = int(t)
-    if cmd == 'R':
-        for _ in range(t):
-            A.append(A[len(A)-1]+1)
-    else:
-        for _ in range(t):
-            A.append(A[len(A)-1]-1)
+    cmd, t = tuple(input().split())
+        for _ in range(int(t)):
+            A[time_a] = A[time_a - 1] + (1 if cmd == 'R' else -1)
+            time_a += 1
 
+time_b = 1
 for _ in range(m):
-    cmd, t = map(str,input().split())
-    t = int(t)
-    if cmd == 'R':
-        for _ in range(t):
-            B.append(B[len(B)-1]+1)
-    else:
-        for _ in range(t):
-            B.append(B[len(B)-1]-1)
+    cmd, t = tuple(input().split())
+        for _ in range(int(t)):
+            B[time_b] = B[time_b - 1] + (1 if cmd == 'R' else -1)
+            time_b += 1
 
-isAnswer = False
-for i in range(1,len(A)):
+answer = -1
+for i in range(1, time_a):
     if A[i] == B[i]:
-        print(i)
-        isAnswer = True
+        ans = i
         break
-if not isAnswer:
-    print(-1)
+
+print(ans)
