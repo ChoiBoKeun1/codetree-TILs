@@ -21,11 +21,11 @@ for _ in range(n):
         x += dx[mapper[cmd]]
         y += dy[mapper[cmd]]
         
+        ans += 1
+
         if (x,y) == (0,0):
             isBack = True
             break
-        
-        ans += 1
 
     if isBack:
         break
