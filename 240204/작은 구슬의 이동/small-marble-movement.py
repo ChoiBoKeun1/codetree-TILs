@@ -16,15 +16,15 @@ mapper = {
 }
 
 def in_range(x,y):
-    return 1 <= x and x <= n and 1 <= y and y <= n
+    return 0 <= x and x < n and 0 <= y and y < n
 
 move_dir = mapper[d]
-for _ in range(1, t + 1):
+for _ in range(t):
     nx = c + dx[move_dir]
     ny = r + dy[move_dir]
     if not in_range(nx, ny):
         move_dir = (3 - move_dir)
     else:
-        c,r = c + dx[move_dir] , r + dy[move_dir]
+        c,r = nx, ny
 
-print(r,c)
+print(r+1,c+1)
