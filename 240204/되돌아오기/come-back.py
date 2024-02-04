@@ -14,16 +14,20 @@ x,y = 0,0
 isBack = False
 ans = 0
 for _ in range(n):
-    print(x,y)
     cmd, t = map(str, input().split())
     t = int(t)
-    
-    x += dx[mapper[cmd]] * t
-    y += dy[mapper[cmd]] * t
 
-    ans += 1
-    if (x,y) == (0,0):
-        isBack = True
+    for _ in range(t):
+        x += dx[mapper[cmd]]
+        y += dy[mapper[cmd]]
+        
+        if (x,y) == (0,0):
+            isBack = True
+            break
+        
+        ans += 1
+
+    if isBack:
         break
 
 if not isBack:
