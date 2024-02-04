@@ -20,7 +20,7 @@ mapper = {
 }
 
 def in_range(x,y):
-    return 0 <= x and x < n and 0 <= y and y < n
+    return 1 <= x and x <= n and 1 <= y and y <= n
 
 move_dir = mapper[d]
 for i in range(t + 1):
