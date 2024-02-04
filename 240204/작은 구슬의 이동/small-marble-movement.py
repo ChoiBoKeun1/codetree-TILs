@@ -1,7 +1,7 @@
 n,t = map(int,input().split())
 r,c,d = map(str,input().split())
 
-r,c = int(r), int(c)
+r,c = int(r)-1, int(c)-1
 
 # 동남북서
 dx = [1,0,0,-1]
