@@ -14,7 +14,6 @@ dx, dy = [1,0,-1,0], [0,1,0,-1]
 x,y = 0,0
 move_dir = 0
 
-arr[0][0] = 1
 cnt = 1
 for _ in range(n):
     for _ in range(m):
