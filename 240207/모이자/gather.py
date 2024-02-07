@@ -1,7 +1,11 @@
+import sys
+
+INT_MAX = sys.maxsize
+
 n = int(input())
 arr = list(map(int,input().split()))
 
-ans = 1000000
+ans = INT_MAX
 
 # i번째 집으로 모이자
 for i in range(n):
