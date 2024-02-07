@@ -1,7 +1,7 @@
 n = int(input())
 arr = list(map(int,input().split()))
 
-ans = 10000
+ans = 1000000
 
 # i번째 집으로 모이자
 for i in range(n):
