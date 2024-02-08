@@ -20,7 +20,9 @@ for i in range(n):
     # 그 다음으로 큰 값(존재한다면)
     max_val_row2 = 0
     for j in range(n-2):
-        if max_j <= j and j <= max_j+2:
+        if max_j <= j:
+            continue
+        if max_j <= j+2:
             continue
         sum_val = arr[i][j] + arr[i][j+1] + arr[i][j+2]
         if max_val_row2 < sum_val:
@@ -31,4 +33,5 @@ for i in range(n):
 
 sorted_list = sorted(answer_list)
 sorted_list.reverse()
+
 print(sorted_list[0] + sorted_list[1])
