@@ -4,34 +4,15 @@ arr = [
     for _ in range(n)
 ]
 
-answer_list = []
-
+max_val = 0
 for i in range(n):
-    # i번째 row에서, 1*3 격자 내 최대값
-    max_val_row = 0
-    max_i, max_j = -1,-1
     for j in range(n-2):
-        sum_val = arr[i][j] + arr[i][j+1] + arr[i][j+2]
-        if max_val_row < sum_val:
-            max_val_row = sum_val
-            max_i,max_j = i,j
+        for k in range(n):
+            for l in range(n-2):
+                if i == k and abs(j-l) <= 2:
+                    continue
+                cnt1 = arr[i][j] + arr[i][j+1] + arr[i][j+2]
+                cnt2 = arr[k][l] + arr[k][l+1] + arr[k][l+2]
+                max_val = max(max_val, cnt1+cnt2)
 
-    # i번째 row에서, 1*3 격자 내
-    # 그 다음으로 큰 값(존재한다면)
-    max_val_row2 = 0
-    for j in range(n-2):
-        if max_j <= j:
-            continue
-        if max_j <= j+2:
-            continue
-        sum_val = arr[i][j] + arr[i][j+1] + arr[i][j+2]
-        if max_val_row2 < sum_val:
-            max_val_row2 = sum_val
-
-    answer_list.append(max_val_row)
-    answer_list.append(max_val_row2)
-
-sorted_list = sorted(answer_list)
-sorted_list.reverse()
-
-print(sorted_list[0] + sorted_list[1])
+print(max_val)
