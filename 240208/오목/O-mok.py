@@ -31,6 +31,14 @@ def check_diagonal(i,j, num):
         return True
     return False
 
+def check_diagonal_reverse(i,j, num):
+    if in_range(i+1,j-1) and arr[i+1][j-1] == num and \
+       in_range(i+2,j-2) and arr[i+2][j-2] == num and \
+       in_range(i+3,j-3) and arr[i+3][j-3] == num and \
+       in_range(i+4,j-4) and arr[i+4][j-4] == num:
+        return True
+    return False
+
 ans = 0
 ans_i, ans_j = 0,0
 for i in range(n):
@@ -48,6 +56,10 @@ for i in range(n):
                 ans = 1
                 ans_i, ans_j = i+2, j+2
                 break
+            elif check_diagonal_reverse(i,j,1):
+                ans = 1
+                ans_i, ans_j = i+2, j-2
+                break    
         elif arr[i][j] == 2:
             if check_col(i,j,2):
                 ans = 2
@@ -60,6 +72,10 @@ for i in range(n):
             elif check_diagonal(i,j,2):
                 ans = 2
                 ans_i, ans_j = i+2, j+2
+                break
+            elif check_diagonal_reverse(i,j,2):
+                ans = 2
+                ans_i, ans_j = i+2, j-2
                 break 
     else:
         continue
