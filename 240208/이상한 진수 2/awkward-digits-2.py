@@ -2,7 +2,7 @@ a = input()
 max_val = 0
 
 number = a[:]
-for i in range(len(number)-1):
+for i in range(len(number)):
     number = a[:]
     if number[i] == '0':
         number = number[:i] + '1' + number[i+1:]
