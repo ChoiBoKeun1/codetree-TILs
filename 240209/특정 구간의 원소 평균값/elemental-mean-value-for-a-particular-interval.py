@@ -18,8 +18,6 @@ def get_average(i,j):
 ans = 0
 for i in range(n):
     for j in range(i, n):
-        
-
         average = get_average(i,j)
         
         if average in arr[i:j+1]:
