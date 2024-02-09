@@ -1,6 +1,8 @@
 n,k = map(int,input().split())
 
-arr = [0] * 101
+MAX_IDX = 100 + 2*k + 1
+
+arr = [0] * MAX_IDX
 for _ in range(n):
     num, idx = map(int,input().split())
     arr[idx] += num
@@ -12,7 +14,8 @@ for _ in range(n):
 '''
 
 ans = 0
-for i in range(101 - 2*k):
+# i는 시작점 idx
+for i in range(MAX_IDX - 2*k):
     sum_val = 0
     for l in range(i, i+2*k + 1):
         sum_val += arr[l]
