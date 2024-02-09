@@ -1,24 +1,21 @@
+MAX_NUM = 100
+
 n,k = map(int,input().split())
+arr = [0] * (MAX_NUM+1)
 
-MAX_IDX = 100 + 2*k + 1
-
-arr = [0] * MAX_IDX
 for _ in range(n):
     num, idx = map(int,input().split())
     arr[idx] += num
 
-'''
-[c-K, c+K]
-[0, 2K] 
-길이 : 2K + 1
-'''
-
 ans = 0
 # i는 시작점 idx
-for i in range(MAX_IDX - 2*k):
+for i in range(MAX_NUM):
     sum_val = 0
-    for l in range(i, i+2*k + 1):
-        sum_val += arr[l]
+    
+    for j in range(i-k, i+k+1):
+        if j >= 0 and j <= MAX_NUM:
+            sum_val += arr[j]
+
     ans = max(ans,sum_val)
 
 print(ans)
