@@ -8,20 +8,17 @@ def get_average(i,j):
     for k in range(i,j+1):
         sum_val += arr[k]
 
-    average = sum_val / (j-i)
+    average = sum_val / (j-i+1)
 
     if average.is_integer():
         average = int(average)
     
     return average
 
-
 ans = 0
 for i in range(n):
     for j in range(i, n):
-        if i == j:
-            ans += 1
-            continue
+        
 
         average = get_average(i,j)
         
