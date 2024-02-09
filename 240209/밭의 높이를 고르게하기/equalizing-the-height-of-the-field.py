@@ -12,7 +12,7 @@ for i in range(n-t + 1):
 
     # 구간 i ~ i+t -1 까지
     for j in range(i, i+t):
-        cost += abs(h - arr[k])
+        cost += abs(h - arr[j])
     
     ans = min(ans,cost)
 
