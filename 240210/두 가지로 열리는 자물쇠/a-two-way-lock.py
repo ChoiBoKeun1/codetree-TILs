@@ -10,8 +10,8 @@ for i in range(1,n+1):
                (abs(b1-j) <= 2 or abs(b1-j) >= n-2) and \
                (abs(c1-k) <= 2 or abs(c1-k) >= n-2):
                 cnt += 1
-            elif (abs(a1-i) <= 2 or abs(a1-i) >= n-2) and \
-                 (abs(b1-j) <= 2 or abs(b1-j) >= n-2) and \
-                 (abs(c1-k) <= 2 or abs(c1-k) >= n-2):
+            elif (abs(a2-i) <= 2 or abs(a2-i) >= n-2) and \
+                 (abs(b2-j) <= 2 or abs(b2-j) >= n-2) and \
+                 (abs(c2-k) <= 2 or abs(c2-k) >= n-2):
                 cnt += 1
 print(cnt)
