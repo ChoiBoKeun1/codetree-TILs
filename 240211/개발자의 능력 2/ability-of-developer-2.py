@@ -7,24 +7,18 @@ ans = sys.maxsize
 for i in range(6):
     for j in range(i+1,6):
         for k in range(6):
-            if k == i or k == j:
-                continue
             for l in range(k+1,6):
-                if l == i or l == j:
+                if k == i or k == j or l == i or l == j:
                     continue
 
-                set1,set2,set3 = [],[],arr[:]
-
-                set1.append(arr[i])
-                set1.append(arr[j])
-                set2.append(arr[k])
-                set2.append(arr[l])
-                set3[i],set3[j],set3[k],set3[l] = 0,0,0,0
+                sum1 = arr[i] + arr[j]
+                sum2 = arr[k] + arr[l]
+                sum3 = sum(arr) - sum1 - sum2
                 
-                sum_list = [sum(set1),sum(set2),sum(set3)]
-                sum_list.sort()
-
-                diff = abs(sum_list[0]-sum_list[2])
+                # 3팀의 차이들 중 가장 큰 차이 == 가장 큰팀 - 가장 작은 팀
+                diff = abs(sum1 - sum2)
+                diff = max(diff, abs(sum2 - sum3))
+                diff = max(diff, abs(sum1 - sum3))
 
                 ans = min(ans, diff)
 
