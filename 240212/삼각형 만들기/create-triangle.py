@@ -20,7 +20,7 @@ for i in range(n):
             if y1 != y2 and y1 != y3 and y2 != y3:
                 continue
 
-            area = abs((x1*y2 + x2*y3 + x3*y1)-(x2*y1 + x3*x2 + x1*y3))
+            area = abs((x1*y2 + x2*y3 + x3*y1)-(x2*y1 + x3*y2 + x1*y3))
             ans = max(area,ans)
 
 print(ans)
