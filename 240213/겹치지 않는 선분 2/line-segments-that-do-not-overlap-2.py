@@ -10,7 +10,10 @@ ans = 0
 for i in range(n):
     overlap = False
 
-    for j in range(i+1, n):
+    for j in range(n):
+        if i == j:
+            continue
+
         x11,x12 = arr[i]
         x21,x22 = arr[j]
 
