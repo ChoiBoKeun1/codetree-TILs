@@ -1,47 +1,27 @@
-n,m,d,s = map(int,input().split())
+N,M,D,S = map(int,input().split())
 eat = [
     tuple(map(int,input().split()))
-    for _ in range(d)
+    for _ in range(D)
 ]
 sick = [
     tuple(map(int,input().split()))
-    for _ in range(s)
+    for _ in range(S)
 ]
 
-sick_people = []
+possible_cheezes = []
+# i번째 치즈가 상했다고 가정
+for i in range(M):
+    for p,m,t in eat:
+        if m == i:
+            for p2,t2 in sick:
+                if p == p2 and t < t2 and i not in possible_cheezes:
+                    possible_cheezes.append(i)
 
-def getSickTime(i):
-    sick_time = 0
-    for p,t in sick:
-        if p == i:
-            sick_time = t
-    return sick_time
-
-def getPossibleCheezes(i, sick_time):
-    possible_cheezes = []
-    if sick_time:
-        for p,m,t in eat:
-            if p == i:
-                if t < sick_time:
-                    possible_cheezes.append(m)
-    return possible_cheezes
-
-for i in range(1, n+1):
-    # i번째 사람 기준으로
-    # 아팠다고 했는지 확인
-    sick_time = getSickTime(i)
-    if sick_time and i not in sick_people:
-        sick_people.append(i)
-
-    possible_cheezes = getPossibleCheezes(i,sick_time)
-
-    for j in range(1, n+1):
-        if i == j:
-            continue
-
-        for pos_cheeze in possible_cheezes:
-            for p,m,t in eat:
-                if m == pos_cheeze and p not in sick_people:
-                    sick_people.append(p)
-
-print(len(sick_people))
+ans = 0
+for possible_cheeze in possible_cheezes:
+    cnt = 0
+    for p,m,t in eat:
+        if m == possible_cheeze:
+            cnt += 1
+    ans = max(ans,cnt)
+print(ans)
