@@ -28,8 +28,7 @@ for i in range(n):
     tmpArr.pop(i)
     sorted_tmpArr = sorted(tmpArr,key=lambda x: x.get_full_price())
     
-    
-    for j in range(n):
+    for j in range(n-1):
         if i == j:
             continue
 
