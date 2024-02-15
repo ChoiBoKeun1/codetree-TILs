@@ -20,20 +20,23 @@ ans = 0
 for i in range(n):
     total_price = arr[i].get_sale_price()
     
-    if total_price > b:
+    if b < total_price:
         continue
     
     cnt = 1
+    tmpArr = arr[:]
+    tmpArr.pop(i)
+    sorted_tmpArr = sorted(tmpArr,key=lambda x: x.get_full_price())
+    
     
     for j in range(n):
         if i == j:
             continue
 
-        j_price = arr[j].get_full_price()
-        total_price += j_price
+        total_price += sorted_tmpArr[j].get_full_price()
         
         if b < total_price:
-            total_price -= j_price
+            break
         else:
             cnt += 1
 
