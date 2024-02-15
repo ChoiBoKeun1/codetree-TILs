@@ -19,7 +19,12 @@ ans = 0
 # i번째 학생에게 할인 쿠폰을 적용
 for i in range(n):
     total_price = arr[i].get_sale_price()
+    
+    if total_price > b:
+        continue
+    
     cnt = 1
+    
     for j in range(n):
         if i == j:
             continue
