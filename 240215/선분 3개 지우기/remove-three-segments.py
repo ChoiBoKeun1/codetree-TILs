@@ -11,17 +11,17 @@ for i in range(n):
             if i == j or j == k or k == i:
                 continue
 
-            tmparr = arr[:]
-            tmparr.pop(i)
-            tmparr.pop(j-1)
-            tmparr.pop(k-2)
-
-            check = [0] * 101
-            for x1,x2 in tmparr:
-                for l in range(x1,x2+1):
-                    check[l] += 1
-            
             isAns = True
+            check = [0] * 101
+            
+            for x in range(n):
+                if x == i or x == j or x == k:
+                    continue
+                x1,x2 = arr[x]
+                
+                for l in range(x1,x2+1):
+                    check[l] += 1                   
+            
             for ch in check:
                 if ch > 1:
                     isAns = False
