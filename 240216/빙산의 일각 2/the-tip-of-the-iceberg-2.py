@@ -24,7 +24,7 @@ for i in range(1,1001):
                     cnt += 1
                     break
             
-        if isVisit[n-1] == True:
-            cnt += 1
-        ans = max(ans,cnt)
+    if isVisit[n-1] == True:
+        cnt += 1
+    ans = max(ans,cnt)
 print(ans)
