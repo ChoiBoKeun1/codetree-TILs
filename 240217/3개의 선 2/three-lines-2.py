@@ -9,6 +9,7 @@ for i in range(n):
     # 이 점에 x,y축 평행하게 직선 2개를 그린다
     x,y = arr[i]
 
+    # 처음 그은 직선 위에 있지 않은 점들
     remain_points = []
     for x2,y2 in arr:
         if x != x2 and y != y2:
@@ -21,17 +22,24 @@ for i in range(n):
     length = len(remain_points)
 
     # 남은 점들 x값 모두 같은지 비교
-    # 남은 점들 y값 모두 같은지 비교
-    for j in range(length):
-        for k in range(length):
-            if j==k: 
-                continue
-            x2,y2 = remain_points[j]
-            x3,y3 = remain_points[k]
-            if x2 != x3:
-                isOnLineX = False
-            if y2 != y3:
-                isOnLineY = False
+    for j in range(length-1):
+        x2,y2 = remain_points[j]
+        x3,y3 = remain_points[j+1]
+        if x2 == x3:
+            continue
+        else:
+            isOnLineX = False
+            break
+
+    # 남은 점들 x값 모두 같은지 비교
+    for j in range(length-1):
+        x2,y2 = remain_points[j]
+        x3,y3 = remain_points[j+1]
+        if y2 == y3:
+            continue
+        else:
+            isOnLineY = False
+            break
 
     if not isOnLineX and not isOnLineY:
         ans = 0
