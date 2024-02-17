@@ -4,32 +4,39 @@ arr = [
     for _ in range(n)
 ]
 
-ans = 0
 for i in range(n):
     # i번째 점을 지정.
     # 이 점에 x,y축 평행하게 직선 2개를 그린다
     x,y = arr[i]
 
-    # 다른 점에 직선을 하나 그어서
-    # 모든 점이 지나는지 확인한다.
-    isLine = False
-    for j in range(n):
-        if i == j:
-            continue
-        x2,y2 = arr[j]
-        # j번째 점이 기존 직선을 지나는지 확인
-        # 지나면 다음 점을 확인
-        if x2 == x or y2 == y:
-            continue
-        
-        # 지나지 않기에, 이 점을 지나는 직선을 그엇다 가정
-        # 이제 나머지 점들이 직선 위에 있나 확인하자.
-        else: 
-            for k in range(n):
-                if i == k or j == k:
-                    continue
-                x3,y3 = arr[k]
-                if x3 == x or x3 == x2 or y3 == y or y3 == y2:
-                    ans = 1
+    remain_points = []
+    for x2,y2 in arr:
+        if x != x2 and y != y2:
+            remain_points.append((x2,y2))
+    
+    # 이 점들은 모두 한 직선 위에 있어야 한다.
+    # 그렇지 않으면 직선 3개로는 불가능하다
+    isOnLineX = True
+    isOnLineY = True
+    length = len(remain_points)
+
+    # 남은 점들 x값 모두 같은지 비교
+    # 남은 점들 y값 모두 같은지 비교
+    for j in range(length):
+        for k in range(length):
+            if j==k: 
+                continue
+            x2,y2 = remain_points[j]
+            x3,y3 = remain_points[k]
+            if x2 != x3:
+                isOnLineX = False
+            if y2 != y3:
+                isOnLineY = False
+
+    if not isOnLineX and not isOnLineY:
+        ans = 0
+    else:
+        ans = 1
+        break
 
 print(ans)
