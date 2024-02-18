@@ -33,20 +33,22 @@ def checkCol(i,j):
 
 def checkDiagonal(i,j):
     cnt,cnt2 = 0,0
-    if arr[0][0] == i or arr[1][1] == i or arr[2][2] == i:
-        cnt += 1
-    elif arr[0][0] == j or arr[1][1] == j or arr[2][2] == j:
-        cnt2 += 1
+    for k in range(3):
+        if arr[k][k] == i:
+            cnt += 1
+        elif arr[k][k] == j:
+            cnt2 += 1
     if (cnt == 2 and cnt2 == 1) or (cnt == 1 and cnt2 == 2):
             return True
     return False
 
 def checkDiagonalRev(i,j):
     cnt,cnt2 = 0,0
-    if arr[0][2] == i or arr[1][1] == i or arr[2][0] == i:
-        cnt += 1
-    elif arr[0][2] == j or arr[1][1] == j or arr[2][0] == j:
-        cnt2 += 1
+    for k in range(3):
+        if arr[k][2-k] == i:
+            cnt += 1
+        elif arr[k][2-k] == j:
+            cnt2 += 1
     if (cnt == 2 and cnt2 == 1) or (cnt == 1 and cnt2 == 2):
             return True
     return False
