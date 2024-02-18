@@ -1,11 +1,7 @@
-a = [ input() for _ in range(3) ]
-
-arr = []
-for i in range(3):
-    row = []
-    for j in range(3):
-        row.append(int(a[i][j]))
-    arr.append(row)
+arr = [
+    list(map(int,input()))
+    for _ in range(3)
+]
 
 def checkRow(i,j):
     for row in arr:
