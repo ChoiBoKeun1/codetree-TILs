@@ -54,7 +54,7 @@ def checkDiagonalRev(i,j):
 MAX_N = 9
 ans = 0
 for i in range(1, MAX_N+1):
-    for j in range(1, MAX_N+1):
+    for j in range(i+1, MAX_N+1):
         if i == j:
             continue
         if checkCol(i,j) or checkRow(i,j) or checkDiagonal(i,j) or checkDiagonalRev(i,j):
