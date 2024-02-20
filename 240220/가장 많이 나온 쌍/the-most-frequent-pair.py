@@ -12,7 +12,7 @@ for i in range(1,n+1):
             continue
         
         for a,b in arr:
-            if (i == a and j == b) or (i == b and j == a):
+            if (i,j) in [(a,b),(b,a)]:
                 cnt += 1
         ans = max(ans,cnt)
 print(ans)
