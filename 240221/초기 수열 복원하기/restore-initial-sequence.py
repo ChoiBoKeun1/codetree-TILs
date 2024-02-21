@@ -8,10 +8,14 @@ for i in range(1,n+1):
     sequence[0] = i
     
     for j in range(n-1):
-        sequence[j+1] = arr[j] - sequence[j]
+        next_val = arr[j] - sequence[j]
+        if next_val > 0 and next_val <= n:
+            sequence[j+1] = next_val
+        else:
+            break
     
     # sequence의 모든 원소가 유일한가
-    if len(sequence) == len(set(sequence)):
+    if len(sequence) == len(set(sequence)) and len(sequence) == n:
         new_sum_arr = []
         for j in range(n-1):
             new_sum_arr.append(sequence[j]+sequence[j+1])
@@ -19,4 +23,3 @@ for i in range(1,n+1):
         if arr == new_sum_arr:
             for elem in sequence:
                 print(elem, end=' ')
-            break
