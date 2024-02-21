@@ -5,11 +5,13 @@ MAX_NUM = 1000000
 boom = [False] * (n)
 boom_cnt = [0] * (MAX_NUM+1)
 
-ans = 0
+maxval = 1
+maxidx = 0
+
 for i in range(n):
     for j in range(i+1, n):
         if j-i > k:
-            continue
+            break
         
         if arr[i] != arr[j]:
             continue
