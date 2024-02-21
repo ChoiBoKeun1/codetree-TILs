@@ -21,5 +21,8 @@ for i in range(MAX_NUM+1):
     if MAX_BOOM < boom[i]:
         MAX_BOOM = boom[i]
         ans = i
-
+    elif MAX_BOOM == boom[i]:
+        if ans < i:
+            MAX_BOOM = boom[i]
+            ans = i
 print(ans)
