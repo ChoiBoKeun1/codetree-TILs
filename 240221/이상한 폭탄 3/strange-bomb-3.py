@@ -9,9 +9,9 @@ arr = [
 bomb = [0] * (MAX_NUM+1)
 explode = [False] * n
 
-
-maxval = 0
+maxval = 1
 maxidx = 0
+
 for i in range(n):
     for j in range(i+1,n):
         if j-i > k:
@@ -32,4 +32,5 @@ for i in range(MAX_NUM+1):
     if maxval <= bomb[i]:
         maxval = bomb[i]
         maxidx = i
+
 print(maxidx)
