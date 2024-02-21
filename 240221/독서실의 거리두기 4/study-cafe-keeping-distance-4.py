@@ -12,8 +12,6 @@ def min_dist():
 ans = 0
 for i in range(n):
     for j in range(i+1,n):
-        if i == j:
-            continue
         if seat[i] == '0' and seat[j] == '0':
             seat[i],seat[j] = '1','1'
             ans = max(ans, min_dist())
