@@ -1,23 +1,28 @@
+import sys
+
 n,m,p = map(int,input().split())
-arr = [0] + [
-    tuple(map(str,input().split()))
+message = [
+    list(input().split())
     for _ in range(m)
 ]
 
-people = [False] * n
+# p번째 메세지를 읽지 않은 사람의 수
+num_of_unread = int(message[p-1][1])
 
-for i in range(1,m+1):
-    if i >= p:
-        c,u = arr[i]
-        people[ord(c)-65] = True
-    
-c,u = arr[p]
-cnt_false = lambda people: sum(1 for item in people if not item)
-cnt = cnt_false(people)
+# p번째 메세지를 읽지 않은 사람이 0명이면, 프로그램 종료
+if num_of_unread == 0:
+    sys.exit()
 
-if int(u) == 0:
-    pass
-else:
-    for i in range(n):
-        if not people[i]:
-            print(chr(i+65),end=' ')
+# 모든 사람들을 보자
+for i in range(n):
+    person = chr(ord('A')+i)
+    read = False
+
+
+    for c,u in message:
+        u = int(u)
+        if u >= num_of_unread and c == person:
+            read = True
+
+    if read == False:
+        print(person, end=' ')
