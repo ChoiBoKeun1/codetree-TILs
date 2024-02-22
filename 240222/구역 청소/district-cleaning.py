@@ -1,26 +1,19 @@
 a,b = map(int,input().split())
 c,d = map(int,input().split())
 
-ans = 0
-# ab가 cd 보다 앞에 있음
-if a <= c:
-    # ab가 cd를 포함하는 경우
-    if b >= d:
-        ans += b-a
-    # ab와 cd 일부분이 겹치는 경우
-    elif b >= c:
-        ans += (b-a) + (d-c) - (b-c)
-    # 안겹치는 경우
+def intersecting(x1,x2,x3,x4):
+    if x2 < x3 or x4 < x1:
+        return False
     else:
-        ans += (b-a) + (d-c)
-# cd가 ab 보다 앞에 있음
+        return True
+
+'''
+겹치는 경우
+a     c     b      d
+c     a     d      b
+두 선분의 오른쪽 값들 중 큰 값 - 두 선분의 왼쪽 값들 중 작은 값
+'''
+if intersecting(a,b,c,d):
+    print(max(b,d) - min(a,c))
 else:
-    # cd가 ab를 포함하는 경우
-    if d >= b:
-        ans += d-c
-    # ab와 cd 일부분이 겹치는 경우
-    elif d >= a:
-        ans += (b-a) + (d-c) - (d-a)
-    else:
-        ans = (b-a) + (d-c)
-print(ans)
+    print((b-a)+(d-c))
