@@ -18,8 +18,8 @@ for i in range(n):
         max_x1 = max(max_x1,x1)
         min_x2 = min(min_x2,x2)
             
-        if max_x1 >= min_x2:
-            possible = False    
+    if max_x1 >= min_x2:
+        possible = False    
 
 if possible:
     print('Yes')
