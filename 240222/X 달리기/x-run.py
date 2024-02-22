@@ -1,19 +1,21 @@
 x = int(input())
 
-cur_speed = 1
-time = 0
-dist = 0
+speed = 0
+idx = 0
+cnt = 0
 
-while time < x:
-    dist += cur_speed
-    time += 1
-    
-    if dist < x/2:
-        cur_speed += 1
-    elif dist >= x/2 and cur_speed > 1:
-        cur_speed -= 1
+while idx + 2*(speed+1) <= x:
+    speed += 1
+    idx += 2*speed
+    cnt += 2
+    print("중간체크", idx, cnt, speed)
 
-    if dist == x:
-        break
+if idx + speed + 1 < x: #최고 속도가 1번시
+    idx += speed + 1
+    cnt += 1
+    speed += 1
+    print("최고 속도 한번", idx, cnt, speed)
     
-print(time)
+
+    
+print(cnt if idx == x else cnt + 1) #idx가 x가 아니면 speed이하에서 한번 유지시켜야함
