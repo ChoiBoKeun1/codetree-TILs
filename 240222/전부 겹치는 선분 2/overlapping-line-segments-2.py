@@ -4,8 +4,7 @@ arr = [
     for _ in range(n)
 ]
 
-    possible = True
-
+possible = True
 # i번째 선분을 제거
 for i in range(n):
     max_x1 = 0
