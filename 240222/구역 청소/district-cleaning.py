@@ -10,7 +10,9 @@ if a <= c:
     # ab가 cd를 포함하는 경우
     elif b >= d:
         ans += b-a
-
+    # 안겹치는 경우
+    else:
+        ans += (b-a) + (d-c)
 # cd가 ab 보다 앞에 있음
 else:
     # ab와 cd 일부분이 겹치는 경우
@@ -19,5 +21,6 @@ else:
     # cd가 ab를 포함하는 경우
     elif d >= b:
         ans += d-c
-
+    else:
+        ans = (b-a) + (d-c)
 print(ans)
