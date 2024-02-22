@@ -8,13 +8,11 @@ while idx + 2*(speed+1) <= x:
     speed += 1
     idx += 2*speed
     cnt += 2
-    print("중간체크", idx, cnt, speed)
 
 if idx + speed + 1 < x: #최고 속도가 1번시
     idx += speed + 1
     cnt += 1
     speed += 1
-    print("최고 속도 한번", idx, cnt, speed)
     
 
     
