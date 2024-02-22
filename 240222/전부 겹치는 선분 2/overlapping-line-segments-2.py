@@ -4,24 +4,22 @@ arr = [
     for _ in range(n)
 ]
 
-def intersecting(x1,x2,x3,x4):
-    if x2 < x3 or x4 < x1:
-        return False
-    else:
-        return True
+possible = False
 
-possible = True
 for i in range(n):
+    max_x1 = 0
+    min_x2 = 101
     for j in range(n):
-        for k in range(j+1,n):
-            if i == j or j == k:
-                continue
-            x1,x2 = arr[j]
-            x3,x4 = arr[k]
-            if not intersecting(x1,x2,x3,x4):
-                possible = False
+        if i == j:
+            continue
 
+        x1,x2 = arr[j]
+        max_x1 = max(max_x1,x1)
+        min_x2 = min(min_x2,x2)
+            
+        if max_x1 < min_x2:
+            possible = True    
 if possible:
-    print("Yes")
+    print('Yes')
 else:
-    print("No")
+    print('No')
