@@ -15,11 +15,9 @@ c,u = arr[p]
 cnt_false = lambda people: sum(1 for item in people if not item)
 cnt = cnt_false(people)
 
-if int(u) < cnt:
+if int(u) == 0:
     pass
 else:
-
-
     for i in range(n):
         if not people[i]:
             print(chr(i+65),end=' ')
