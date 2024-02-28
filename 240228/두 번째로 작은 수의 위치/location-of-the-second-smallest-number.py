@@ -1,26 +1,31 @@
+import sys
+
 n = int(input())
 arr = list(map(int,input().split()))
 
-numbers = [0] * 101
+myarr = sorted(arr)
 
-for i in range(n):
-    numbers[arr[i]] += 1
+# 2번째로 작은 숫자가 존재 : True
+# low2 : 2번째로 작은 숫자
+isexist = False
+low2 = 0
+for elem in myarr:
+    if elem != myarr[0]:
+        low2 = elem
+        isexist = True
+        break
 
-min_2nd = -1
+if not isexist:
+    print(-1)
+    sys.exit()
 
-cnt = 0
-for i in range(101):
-    if numbers[i] != 0:
-        if cnt == 1:
-            if numbers[i] == 1: 
-                min_2nd = i
-            break
-        cnt += 1
+ansIdx = -1
+for i, elem in enumerate(arr):
+    if elem == low2:
+        if ansIdx != -1:
+            print(-1)
+            sys.exit()
+        
+        ansIdx = i
 
-if min_2nd == -1:
-    print(min_2nd)
-else:
-    for i in range(n):
-        if arr[i] == min_2nd:
-            print(i+1)
-            break
+print(ansIdx+1)
