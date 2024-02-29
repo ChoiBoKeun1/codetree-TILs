@@ -7,7 +7,6 @@ R_i,R_j = 0,0
 
 for i in range(n):
     row = input()
-    print(row)
     for j in range(n):
         if row[j] == 'B':
             end_i,end_j = i,j   
