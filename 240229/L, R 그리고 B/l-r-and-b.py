@@ -7,19 +7,18 @@ R_i,R_j = 0,0
 
 for i in range(n):
     row = input()
+    print(row)
     for j in range(n):
         if row[j] == 'B':
-            end_i,end_j = i,j
-            break
+            end_i,end_j = i,j   
         elif row[j] == 'L':
-            start_i,start_j = i,j
-            break
+            start_i,start_j = i,j  
         elif row[j] == 'R':
-            R_i,R_j = i,j
-            break
+            R_i,R_j = i,j       
     arr.append(row)
     
 ans = 0
+
 # 시작 row == 도착 row
 if start_i == end_i:
     # R도 같은 row에 있는 경우,
