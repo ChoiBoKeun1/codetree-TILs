@@ -25,7 +25,7 @@ if start_i == end_i:
     if start_i == R_i:
         if (start_j < R_j and R_j < end_j) or \
            (end_j < R_j and R_j < start_j):
-            ans = abs(start_j - end_j) - 2 + 2
+            ans = abs(start_j - end_j) - 1 + 2
         else:
             ans = max(ans, abs(start_j - end_j) - 2)
     # R은 다른 row에 있는 경우.
@@ -39,7 +39,7 @@ elif start_j == end_j:
     if start_j == R_j:
         if (start_i < R_i and R_i < end_i) or \
            (end_i < R_i and R_i < start_i):
-            ans = abs(start_i - end_i) - 2 + 2
+            ans = abs(start_i - end_i) - 1 + 2
         else:
             ans = max(ans, abs(start_i - end_i) - 2)
     # R은 다른 col에 있는 경우.
