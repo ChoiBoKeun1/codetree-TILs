@@ -27,10 +27,10 @@ if start_i == end_i:
            (end_j < R_j and R_j < start_j):
             ans = abs(start_j - end_j) - 1 + 2
         else:
-            ans = max(ans, abs(start_j - end_j) - 2)
+            ans = max(ans, abs(start_j - end_j) - 1)
     # R은 다른 row에 있는 경우.
     else:
-        ans = max(ans, abs(start_j - end_j) - 2)
+        ans = max(ans, abs(start_j - end_j) - 1)
 
 # 시작 col == 도착 col
 elif start_j == end_j:
@@ -41,10 +41,10 @@ elif start_j == end_j:
            (end_i < R_i and R_i < start_i):
             ans = abs(start_i - end_i) - 1 + 2
         else:
-            ans = max(ans, abs(start_i - end_i) - 2)
+            ans = max(ans, abs(start_i - end_i) - 1)
     # R은 다른 col에 있는 경우.
     else:
-        ans = max(ans, abs(start_i - end_i) - 2)
+        ans = max(ans, abs(start_i - end_i) - 1)
 
 # 그 외의 경우는, R의 위치에 관계없이, 시작점과 도착점만 고려하면 된다.
 else:
