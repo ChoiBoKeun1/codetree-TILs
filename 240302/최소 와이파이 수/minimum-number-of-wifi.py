@@ -11,6 +11,10 @@ if m == 0:
     print(cnt)
     sys.exit()
 
+if not 1 in arr:
+    print(0)
+    sys.exit()
+    
 ans1 = n / (2*m +1)
 ans2 = n // (2*m +1)
 #print(ans1,ans2)
