@@ -14,11 +14,13 @@ if m == 0:
 if not 1 in arr:
     print(0)
     sys.exit()
-    
+
 ans1 = n / (2*m +1)
 ans2 = n // (2*m +1)
 #print(ans1,ans2)
 if ans1 == ans2:
+    print(ans2)
+elif ans1 < ans2 + 0.5:
     print(ans2)
 else:
     print(ans2 +1)
