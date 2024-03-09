@@ -18,6 +18,18 @@ class DoublyLinkedList:
         self.head = new_node
         new_node.prev = None
 
+    def push_back(self, new_data):
+        if self.begin() == self.end():
+            self.push_front(new_data)
+        
+        else:
+            new_node = Node(new_data)
+            new_node.prev = self.tail.prev
+
+            self.tail.prev.next = new_node
+            new_node.next = self.tail
+            self.tail.prev = new_node
+
     def erase(self, node):
         next_node = node.next
 
@@ -34,19 +46,7 @@ class DoublyLinkedList:
             node.next = None
 
         return next_node
-
-    def push_back(self, new_data):
-        if self.begin() == self.end():
-            self.push_front(new_data)
-        
-        else:
-            new_node = Node(new_data)
-            new_node.prev = self.tail.prev
-
-            self.tail.prev.next = new_node
-            new_node.next = self.tail
-            self.tail.prev = new_node
-
+    
     def insert(self, node, new_data):
         if node == self.begin():
             self.push_front(new_data)
@@ -57,7 +57,7 @@ class DoublyLinkedList:
         else:
             new_node = Node(new_data)
             new_node.prev = node.prev
-            new_node.next = node.next
+            new_node.next = node
 
             node.prev.next = new_node
             node.prev = new_node
@@ -68,17 +68,21 @@ class DoublyLinkedList:
     def end(self):
         return self.tail
 
+# 입력
 n,m = map(int,input().split())
 bread = input()
 
+# 연결리스트
 l = DoublyLinkedList()
 for elem in bread:
     l.push_back(elem)
 
+# iterator
 it = l.end()
 
 for _ in range(m):
     cmd = input().split()
+
     if cmd[0] == 'L':
         if it != l.begin():
             it = it.prev
@@ -89,12 +93,12 @@ for _ in range(m):
 
     elif cmd[0] == 'D':
         if it != l.end():
-            l.erase(it)
-    
+            it = l.erase(it)
+            
     elif cmd[0] == 'P':
         l.insert(it,cmd[1])
 
-
+# 출력
 it = l.begin()
 while it != l.end():
     print(it.data, end='')
