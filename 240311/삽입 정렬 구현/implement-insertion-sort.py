@@ -12,4 +12,5 @@ for i in range(1,n):
     
     arr[j+1] = key
 
-print(arr)
+for e in arr:
+    print(e, end=' ')
