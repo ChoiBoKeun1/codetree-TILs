@@ -23,7 +23,7 @@ def radix_sort():
             for j in range(len(new_arr[i])):
                 arr.append(new_arr[i][j])
 
-    p *= 10
+        p *= 10
 
 radix_sort()
 
