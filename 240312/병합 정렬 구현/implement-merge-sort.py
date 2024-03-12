@@ -25,10 +25,12 @@ def merge(low, mid, high):
 
     while i <= mid:
         merged_arr[k] = arr[i]
+        k += 1
         i += 1
 
     while j <= high:
         merged_arr[k] = arr[j]
+        k += 1
         j += 1
 
     for k in range(low, high+1):
