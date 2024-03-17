@@ -34,4 +34,7 @@ for i in range(len(s)):
         else:
             myStack.pop()
 
-print("Yes")
+if not myStack.empty():
+    print("No")
+else:
+    print("Yes")
