@@ -28,7 +28,7 @@ for i in range(len(s)):
     if s[i] == '(':
         myStack.push(s[i])
     else:
-        if not myStack.empty():
+        if myStack.empty():
             print("No")
             sys.exit()
         else:
