@@ -26,6 +26,7 @@ for _ in range(n):
             print(0)
         else:
             print(1)
+        # print(1 if not dq else 0)
 
     elif cmd[0] == 'front':
         print(dq[0])
