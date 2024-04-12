@@ -8,10 +8,8 @@ ans = 0
 def isHappy(arr):
     global ans
 
-    length = len(arr)
-
-    for i in range(length-1):
-        if arr[i] == arr[i+1]:
+    for i in range(n-m+1):
+        if arr[i:i+m].count(arr[i]) >= m:
             ans += 1
             break
 
