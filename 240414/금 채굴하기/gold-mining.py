@@ -21,7 +21,7 @@ for i in range(n):
             value = numofgold * m
             cost = k*k + (k+1)*(k+1)
 
-            if value - cost > 0 and ans < numofgold:
+            if value - cost >= 0 and ans < numofgold:
                 ans = numofgold
             
 
