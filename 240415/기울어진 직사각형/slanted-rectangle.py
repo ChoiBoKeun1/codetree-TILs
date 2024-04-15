@@ -29,7 +29,7 @@ def get_score(x,y,a,b):
     
     return sum_val
 
-
+ans = 0
 for i in range(n):
     for j in range(n):
         for a in range(1,n):
