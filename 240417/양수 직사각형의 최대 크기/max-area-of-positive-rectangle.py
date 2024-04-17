@@ -8,7 +8,7 @@ arr = [
 def is_positive_rect(x1,y1, x2,y2):
     for i in range(x1,x2+1):
         for j in range(y1,y2+1):
-            if arr[i][j] < 0:
+            if arr[i][j] <= 0:
                 return False
     
     return True
