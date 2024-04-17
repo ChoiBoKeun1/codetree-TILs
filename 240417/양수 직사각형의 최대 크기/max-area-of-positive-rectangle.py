@@ -30,6 +30,6 @@ for i in range(n):
                     tmp_sum = get_sum(i,j,k,l)
                     if max_sum < tmp_sum:
                         max_sum = tmp_sum
-                        ans = abs(i-k+1) * abs(j-l+1)
+                        ans = (k-i+1) * (l-j+1)
 
 print(ans)
