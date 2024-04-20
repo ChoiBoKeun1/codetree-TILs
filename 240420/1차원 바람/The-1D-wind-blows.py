@@ -26,13 +26,16 @@ def shift(r, d):
 
 # r행 기준으로, 위 아래로 전파
 def propagation(r,d, propa_dir):
+    # 다음층 전파 방향
+    next_dir = bool(~d)
+
     # 위쪽으로 전파
     if propa_dir == 'U':
         if r != 0:
             for j in range(m):
                 if arr[r][j] == arr[r-1][j]:
-                    shift(r-1, ~d)
-                    propagation(r-1, ~d, propa_dir)
+                    shift(r-1, next_dir)
+                    propagation(r-1, next_dir, propa_dir)
                     break
     
     # 아래쪽으로 전파
@@ -40,8 +43,8 @@ def propagation(r,d, propa_dir):
         if r != n-1:
             for j in range(m):
                 if arr[r][j] == arr[r+1][j]:
-                    shift(r+1, ~d)
-                    propagation(r+1, ~d, propa_dir)
+                    shift(r+1, next_dir)
+                    propagation(r+1, next_dir, propa_dir)
                     break
                     
 
@@ -50,11 +53,10 @@ for _ in range(q):
     r = int(r) - 1
 
     wind_dir = True if d == 'L' else False
-
+    
     shift(r,wind_dir)
+    
     propagation(r,wind_dir,'U')
     propagation(r,wind_dir,'D')
-
-
 
 print_arr()
