@@ -27,7 +27,7 @@ def shift(r, d):
 # r행 기준으로, 위 아래로 전파
 def propagation(r,d, propa_dir):
     # 다음층 전파 방향
-    next_dir = bool(~d)
+    next_dir = not d
 
     # 위쪽으로 전파
     if propa_dir == 'U':
