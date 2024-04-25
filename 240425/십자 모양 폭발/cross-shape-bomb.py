@@ -22,9 +22,10 @@ def bomb(r,c):
     arr[r][c] = 0
     
     for dx, dy in zip(dxs,dys):
+        cur_x,cur_y = r,c
         for _ in range(num):
-            cur_x = r + dx
-            cur_y = c + dy
+            cur_x += dx
+            cur_y += dy
             
             if in_range(cur_x,cur_y):
                 arr[cur_x][cur_y] = 0
@@ -49,4 +50,5 @@ r,c = map(int,input().split())
 r,c = r-1,c-1
 
 bomb(r,c)
+
 print_arr(shift(arr))
