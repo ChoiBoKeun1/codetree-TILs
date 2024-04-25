@@ -23,7 +23,7 @@ def bomb(r,c):
     
     for dx, dy in zip(dxs,dys):
         cur_x,cur_y = r,c
-        for _ in range(num):
+        for _ in range(num-1):
             cur_x += dx
             cur_y += dy
             
