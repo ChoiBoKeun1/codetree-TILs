@@ -56,23 +56,33 @@ def simulation():
     arr = right_merge()
     arr = right_shift()
 
-    print_arr(arr)
+    return arr
+
 
 # main 함수
 if cmd == 'R':
-    simulation()
+    arr = simulation()
 
-elif cmd == 'U':
+elif cmd == 'D':
     arr = rotate_arr()
-    simulation()
+    arr = simulation()
+    arr = rotate_arr()
+    arr = rotate_arr()
+    arr = rotate_arr()
+    
 
 elif cmd == 'L':
     arr = rotate_arr()
     arr = rotate_arr()
-    simulation()
+    arr = simulation()
+    arr = rotate_arr()
+    arr = rotate_arr()
 
 else:
     arr = rotate_arr()
     arr = rotate_arr()
     arr = rotate_arr()
-    simulation()
+    arr = simulation()
+    arr = rotate_arr()
+
+print_arr(arr)
