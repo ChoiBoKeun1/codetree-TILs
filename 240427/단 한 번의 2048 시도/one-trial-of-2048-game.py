@@ -22,7 +22,7 @@ def rotate_arr():
 
     for i in range(n):
         for j in range(n):
-            tmp[i][j] = arr[j][n-1-i]
+            tmp[i][j] = arr[n-1-j][i]
 
     arr = tmp
 
@@ -55,39 +55,26 @@ def right_merge():
                 arr[i][j] *= 2
                 arr[i][j-1] = 0
     
+def simulation(cmd):    
+    if cmd == 'R':
+        move_dir = 0
+    elif cmd == 'U':
+        move_dir = 1
+    elif cmd == 'L':
+        move_dir = 2
+    else:
+        move_dir = 3
     
-                
-def simulation():
+    for _ in range(move_dir):
+        rotate_arr()
+
     right_shift()
     right_merge()
     right_shift()
 
-
+    for _ in range(4 - move_dir):
+        rotate_arr()
 
 # main 함수
-if cmd == 'R':
-    simulation()
-
-elif cmd == 'D':
-    rotate_arr()
-    simulation()
-    rotate_arr()
-    rotate_arr()
-    rotate_arr()
-    
-
-elif cmd == 'L':
-    rotate_arr()
-    rotate_arr()
-    simulation()
-    rotate_arr()
-    rotate_arr()
-
-else:
-    rotate_arr()
-    rotate_arr()
-    rotate_arr()
-    simulation()
-    rotate_arr()
-
+simulation(cmd)
 print_arr()
