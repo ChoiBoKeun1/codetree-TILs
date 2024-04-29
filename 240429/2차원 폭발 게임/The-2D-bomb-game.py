@@ -5,6 +5,13 @@ arr = [
     for _ in range(n)
 ]
 
+def print_arr():
+    for i in range(n):
+        for j in range(n):
+            print(arr[i][j],end=' ')
+        print()
+    print()
+
 def count_bomb():
     cnt = 0
     for i in range(n):
@@ -21,17 +28,31 @@ def get_end_idx(start_idx, cur_num, col):
     return n-1
 
 def boom():
-    for j in range(n):
-        cur_idx = 0
-        
-        while cur_idx < n :
-            end_idx = get_end_idx(cur_idx, arr[cur_idx][j], j)
+    while True:
+        did_explode = False
 
-            if end_idx - cur_idx + 1 >= m:
-                for l in range(cur_idx, end_idx+1):
-                    arr[l][j] = 0
+        for j in range(n):
+            cur_idx = 0
             
-            cur_idx = end_idx + 1
+            while cur_idx < n :
+                cur_num = arr[cur_idx][j]
+                end_idx = get_end_idx(cur_idx, cur_num, j)
+                
+                if cur_num == 0:
+                    cur_idx = end_idx + 1
+
+                elif end_idx - cur_idx + 1 >= m:
+                    for l in range(cur_idx, end_idx+1):
+                        arr[l][j] = 0
+                    did_explode = True
+
+                else:
+                    cur_idx = end_idx + 1
+
+        if not did_explode:
+            break
+        else:
+            fall()
 
 def fall():
     global arr
@@ -66,13 +87,12 @@ def rotate():
 
 def boom_and_rotate():
     boom()
-    fall()
-    
+
     rotate()
     fall()
-    
+   
     boom()
-    fall()
+    
     
 for _ in range(k):
     boom_and_rotate()
