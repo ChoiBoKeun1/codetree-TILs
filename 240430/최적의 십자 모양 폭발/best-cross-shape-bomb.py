@@ -7,6 +7,13 @@ arr = [
 def in_range(x,y):
     return 0 <= x and x < n and 0 <= y and y < n
 
+def print_arr(arr):
+    for i in range(n):
+        for j in range(n):
+            print(arr[i][j],end=' ')
+        print()
+    print()
+
 def fall(arr):
     tmp = [
         [0] * n
@@ -42,8 +49,8 @@ def boom(r,c):
             cur_x += dx
             cur_y += dy
 
-        if in_range(cur_x, cur_y):
-            tmp[cur_x][cur_y] = 0
+            if in_range(cur_x, cur_y):
+                tmp[cur_x][cur_y] = 0
 
 
     fallen_arr = fall(tmp)
@@ -61,6 +68,9 @@ def check_adj(arr):
         for i in range(n-1):
             if arr[i][j] != 0 and arr[i][j] == arr[i+1][j]:
                 cnt += 1
+
+    #print_arr(arr)
+    #print(cnt)
 
     return cnt
 
