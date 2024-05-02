@@ -16,13 +16,13 @@ def print_arr():
 for j in range(m):
     arr[k][j] = 1
 
-def is_fall(cur_i):
+def is_fall(cur_i, arr):
     flag = True
 
     for j in range(k, k+m):
         if arr[cur_i][j] != 1 or arr[cur_i+1][j] != 0:
             flag = False
-            
+
     return flag
 
 
@@ -35,7 +35,7 @@ def fall():
     ]
 
     for i in range(n-1):
-        if is_fall(i):
+        if is_fall(i, tmp):
             for j in range(k,k+m):
                 tmp[i][j] = 0
                 tmp[i+1][j] = 1
