@@ -35,6 +35,8 @@ def fall():
             for j in range(k,k+m):
                 tmp[i][j] = 0
                 tmp[i+1][j] = 1
+        else:
+            break
 
     arr = tmp
 
