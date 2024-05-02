@@ -11,10 +11,7 @@ def print_arr():
         for j in range(n):
             print(arr[i][j],end=' ')
         print()
-
-
-for j in range(m):
-    arr[k][j] = 1
+    print()
 
 def is_fall(cur_i, arr):
     flag = True
@@ -24,7 +21,6 @@ def is_fall(cur_i, arr):
             flag = False
 
     return flag
-
 
 def fall():
     global arr
@@ -41,6 +37,10 @@ def fall():
                 tmp[i+1][j] = 1
 
     arr = tmp
-        
+
+# 맨 위에 블록 배치
+for j in range(k,k+m):
+    arr[0][j] = 1
+
 fall()
 print_arr()
