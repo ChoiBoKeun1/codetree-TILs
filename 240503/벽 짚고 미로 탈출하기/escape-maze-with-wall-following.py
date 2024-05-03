@@ -58,7 +58,11 @@ def simulate():
     global direction
     global total_time
 
+    # while 반복횟수
+    cnt = 0
     while True:
+        cnt += 1
+
         # 다음으로 갈 좌표
         next_x = cur_x + dxs[direction]
         next_y = cur_y + dys[direction]
@@ -96,7 +100,7 @@ def simulate():
 
         # 만약 총 시간이 격자의 크기보다 늘어났다면,
         # 탈출이 불가능하다고 판단, -1 return.
-        if total_time > n*n:
+        if cnt > n*n:
             return -1
 
 
