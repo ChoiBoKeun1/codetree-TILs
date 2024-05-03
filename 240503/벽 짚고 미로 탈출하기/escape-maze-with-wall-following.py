@@ -25,11 +25,15 @@ def move():
     next_x = cur_x + dxs[direction]
     next_y = cur_y + dys[direction]
 
-    if not is_wall(next_x,next_y):
+    if in_range(next_x,next_y):
+        if not is_wall(next_x,next_y):
+            cur_x, cur_y = next_x, next_y
+            
+            total_time += 1
+    else:
         cur_x, cur_y = next_x, next_y
-        
+            
         total_time += 1
-
 
 def turn(turn_direction):
     global direction
