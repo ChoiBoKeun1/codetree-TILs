@@ -1,3 +1,5 @@
+import sys
+
 n = int(input())
 x,y = map(int,input().split())
 x,y = x-1,y-1
@@ -7,103 +9,87 @@ arr = [
     for _ in range(n)
 ]
 
+visited = [
+    [
+        [False for _ in range(4)]
+        for _ in range(n)
+    ] 
+    for _ in range(n)
+]
+
 cur_x,cur_y = x,y
-# direction : 0,1,2,3 오, 아래, 왼, 위
-direction = 0
-dxs = [0,1,0,-1]
-dys = [1,0,-1,0]
+
+# cur_dir : 0,1,2,3 오, 아래, 왼, 위
+cur_dir = 0
 
 total_time = 0
 
 def in_range(x,y):
     return 0 <= x and x < n and 0 <= y and y < n
 
-def move():
-    global cur_x, cur_y
-    global total_time
-
-    next_x = cur_x + dxs[direction]
-    next_y = cur_y + dys[direction]
-
-    cur_x,cur_y = next_x,next_y
-        
-    total_time += 1
-
-
-def turn(turn_direction):
-    global direction
-
-    # 시계방향 회전
-    if turn_direction == 0:
-        direction = (direction +1) % 4
-
-    # 반시계방향 회전
-    else:
-        direction = (direction -1 +4) % 4
-
-
+# x,y 자리가 벽인가?
 def is_wall(x,y):
-    # x,y 자리가 벽인가?
-    return arr[x][y] == '#'
-
-def is_wall_right(x,y):
-    # x,y에서, direction을 기준으로 오른쪽에 벽이 있는가?
-    right_hand = (direction+1) % 4
-    next_x = x + dxs[right_hand]
-    next_y = y + dys[right_hand]
-    return arr[next_x][next_y] == '#'
+    return in_range(x,y) and arr[x][y] == '#'
 
 def simulate():
     global cur_x,cur_y
-    global direction
+    global cur_dir
     global total_time
 
-    # while 반복횟수
-    cnt = 0
-    while True:
-        cnt += 1
+    # 만약 현재 위치에서, 이쪽방향으로 간적이 있었다면,
+    # 여길 두번째 왔다는 소리니까
+    # 탈출이 불가능하다 판단한다.
+    if visited[cur_x][cur_y][cur_dir]:
+        print(-1)
+        sys.exit(0)
 
-        # 다음으로 갈 좌표
-        next_x = cur_x + dxs[direction]
-        next_y = cur_y + dys[direction]
+    # 이 위치를 방문했다고 마킹.
+    visited[cur_x][cur_y][cur_dir] = True
+        
+    dxs = [0,1,0,-1]
+    dys = [1,0,-1,0]
+    
+    # 다음으로 갈 좌표
+    next_x = cur_x + dxs[cur_dir]
+    next_y = cur_y + dys[cur_dir]
 
-        # 다음으로 갈 좌표가 
-        # 범위 바깥임
-        # move 후 함수 탈출
-        if not in_range(next_x,next_y):
-            move()
-            return total_time
 
-        # 다음좌표가 벽임
-        # 반시계회전후 move
-        if is_wall(next_x,next_y):
-            turn(1)
+    # 1. 다음좌표가 벽임
 
-        # 벽 아님
-        # 다음좌표 오른쪽이 벽임
-        # move
-        elif is_wall_right(next_x,next_y):
-            move()
+    # 반시계 회전
+    if is_wall(next_x,next_y):
+        cur_dir = (cur_dir -1 +4) % 4
 
-        # 벽 아님
-        # 다음좌표 오른쪽 비어있음
-        # 이동 후 꺾고 다시 이동
+    # 2. 벽 아님
+
+    # 2-1. 다음으로 갈 좌표가 범위 바깥임
+    # 탈출
+    elif not in_range(next_x,next_y):
+        cur_x, cur_y = next_x, next_y
+        total_time += 1
+    
+    # 2-2, 2-3 다음으로 갈 좌표가 범위 안쪽임
+    else:
+        # 다음 좌표의 오른쪽에 벽이 있는가를 확인해보자
+
+        # 다음 좌표의 오른쪽 좌표.
+        rx = next_x + dxs[(cur_dir +1) % 4]
+        ry = next_x + dxs[(cur_dir +1) % 4]
+
+        # 2-2. 다음좌표 오른쪽에 벽이 있음.
+        # 해당 방향으로 한칸 이동.
+        if is_wall(rx,ry):
+            cur_x,cur_y = next_x,next_y
+            total_time += 1
+
+        # 2-3. 다음좌표 오른족에 벽 없음
+        # 이동 -> 회전 -> 이동. 즉, 현재위치를 rx,ry로 바꾸고, 방향 전환해주면 된다.
         else:
-            move()
-            turn(0)
-            move()
+            cur_x, cur_y = rx, ry
+            total_time += 2
 
-        # 이동 후, 탈출했는지 확인
-        # 탈출했으면 함수 끝
-        if not in_range(cur_x,cur_y):
-            return total_time
+# 격자를 빠져나올때까지 반복
+while in_range(cur_x,cur_y):
+    simulate()
 
-        # 만약 총 시간이 격자의 크기보다 늘어났다면,
-        # 탈출이 불가능하다고 판단, -1 return.
-        if cnt > n*n:
-            return -1
-
-
-
-ans = simulate()
-print(ans)
+print(total_time)
