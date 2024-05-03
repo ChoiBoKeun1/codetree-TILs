@@ -32,8 +32,7 @@ def is_wall(x,y):
     return in_range(x,y) and arr[x][y] == '#'
 
 def simulate():
-    global cur_x,cur_y
-    global cur_dir
+    global cur_x,cur_y,cur_dir
     global total_time
 
     # 만약 현재 위치에서, 이쪽방향으로 간적이 있었다면,
@@ -48,20 +47,18 @@ def simulate():
         
     dxs = [0,1,0,-1]
     dys = [1,0,-1,0]
-    
+
     # 다음으로 갈 좌표
     next_x = cur_x + dxs[cur_dir]
     next_y = cur_y + dys[cur_dir]
 
 
     # 1. 다음좌표가 벽임
-
     # 반시계 회전
     if is_wall(next_x,next_y):
         cur_dir = (cur_dir -1 +4) % 4
 
     # 2. 벽 아님
-
     # 2-1. 다음으로 갈 좌표가 범위 바깥임
     # 탈출
     elif not in_range(next_x,next_y):
@@ -74,7 +71,7 @@ def simulate():
 
         # 다음 좌표의 오른쪽 좌표.
         rx = next_x + dxs[(cur_dir +1) % 4]
-        ry = next_x + dxs[(cur_dir +1) % 4]
+        ry = next_y + dys[(cur_dir +1) % 4]
 
         # 2-2. 다음좌표 오른쪽에 벽이 있음.
         # 해당 방향으로 한칸 이동.
