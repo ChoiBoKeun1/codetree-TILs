@@ -83,6 +83,7 @@ def simulate():
         # 이동 -> 회전 -> 이동. 즉, 현재위치를 rx,ry로 바꾸고, 방향 전환해주면 된다.
         else:
             cur_x, cur_y = rx, ry
+            cur_dir = (cur_dir +1) % 4
             total_time += 2
 
 # 격자를 빠져나올때까지 반복
