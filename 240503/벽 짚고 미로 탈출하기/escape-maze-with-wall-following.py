@@ -54,6 +54,7 @@ def is_wall_right(x,y):
 def simulate():
     global cur_x,cur_y
     global direction
+    global total_time
 
     while True:
         # 다음으로 갈 좌표
@@ -65,7 +66,7 @@ def simulate():
         # move 후 함수 탈출
         if not in_range(next_x,next_y):
             move()
-            return None
+            return total_time
 
         # 다음좌표가 벽임
         # 반시계회전후 move
@@ -90,9 +91,14 @@ def simulate():
         # 이동 후, 탈출했는지 확인
         # 탈출했으면 함수 끝
         if not in_range(cur_x,cur_y):
-            return None
+            return total_time
+
+        # 만약 총 시간이 격자의 크기보다 늘어났다면,
+        # 탈출이 불가능하다고 판단, -1 return.
+        if total_time > n*n:
+            return -1
 
 
 
 ans = simulate()
-print(total_time)
+print(ans)
