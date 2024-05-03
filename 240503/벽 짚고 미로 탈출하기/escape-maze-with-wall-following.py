@@ -22,10 +22,13 @@ def move():
     global cur_x, cur_y
     global total_time
 
-    cur_x += dxs[direction]
-    cur_y += dys[direction]
+    next_x = cur_x + dxs[direction]
+    next_y = cur_y + dys[direction]
 
-    total_time += 1
+    if not is_wall(next_x,next_y):
+        cur_x, cur_y = next_x, next_y
+        
+        total_time += 1
 
 
 def turn(turn_direction):
