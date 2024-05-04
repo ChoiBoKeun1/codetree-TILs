@@ -26,7 +26,7 @@ def next_pos(x,y, move_dir):
     if in_range(nx,ny):
         return (nx,ny)
     else:
-        (-1,-1)
+        return (-1,-1)
 
 def simulate(move_dir):
     global r,c
