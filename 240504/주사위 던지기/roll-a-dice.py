@@ -32,13 +32,16 @@ def simulate(move_dir):
     global r,c
     global up,front,right
 
+    # move_dir방향으로 굴렸을때 위치
     nx,ny = next_pos(r,c,move_dir)
-
+    # 굴리는게 불가능할때 : 함수 종료
     if (nx,ny) == (-1,-1):
         return
     
+    # 위치 이동
     r,c = nx,ny
 
+    # 주사위면 위치 조정    
     # R,L,U,D
     if move_dir == 0:
         up,front,right = 7 - right, front, up
@@ -49,6 +52,7 @@ def simulate(move_dir):
     else:
         up,front,right = 7 - front, up, right
 
+    # 바닥 숫자 변경후 arr에 찍기
     bottom = 7 - up
     arr[r][c] = bottom
 
