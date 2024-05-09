@@ -44,8 +44,9 @@ def swap(x,y):
 
     swap_num(x,y, max_x,max_y)
 
-
-for i in range(1, n*n +1):
-    x,y = find_num(i)
-    swap(x,y)
+for _ in range(m): 
+    for cur_num in range(1, n*n +1):
+        x,y = find_num(cur_num)
+        swap(x,y)
+    
 print_arr(arr)
