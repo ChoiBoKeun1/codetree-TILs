@@ -45,7 +45,7 @@ def move_all():
 # 구슬이 부딪혔는지 확인
 # cnt 배열에서 숫자가 2 이상이면 부딪혔다고 판단.
 def check_collapsed(idx):
-    x,y = marbles[idx]
+    x,y,_ = marbles[idx]
     return marble_cnt[x][y] >= 2
 
 # 부딪힌 구슬들을 지우는 함수
