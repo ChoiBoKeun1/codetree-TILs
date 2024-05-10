@@ -87,7 +87,7 @@ for _ in range(t):
         if not is_collapsed:
             not_collapsed_cnt += 1
 
-        if not_collapsed_cnt > n:
+        if not_collapsed_cnt > n*n:
             break
 
     print(get_ans(arr))
