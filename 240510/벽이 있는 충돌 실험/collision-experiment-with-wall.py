@@ -9,10 +9,10 @@ marble_cnt = [
 ]
 
 dir_mapper = {
-    'D': 0,
+    'U': 0,
     'R': 1,
-    'U': 2,
-    'L': 3
+    'L': 2,
+    'D': 3
 }
 
 def in_range(x,y):
@@ -20,9 +20,9 @@ def in_range(x,y):
 
 # 구슬 한개 움직이기
 def move(marble):
-    # 하우상좌
-    dxs = [1,0,-1,0]
-    dys = [0,1,0,-1]
+    # 상우좌하
+    dxs = [-1,0,0,1]
+    dys = [0,1,-1,0]
 
     x,y,cur_dir = marble
 
