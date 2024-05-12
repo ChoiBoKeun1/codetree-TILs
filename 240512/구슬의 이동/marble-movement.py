@@ -63,8 +63,9 @@ def remove_marbles():
                 next_grid[i][j].sort(key=lambda x: (-x[0], -x[1]))
 
                 # 정렬 후, next_grid[i][j] 리스트의 길이가 k가 될때까지 pop 해준다.
-                while(len(next_grid[i][j]) >= k):
+                while(len(next_grid[i][j]) > k):
                     next_grid[i][j].pop()
+                next_grid[i][j].pop()
 
 
 def simulate():
