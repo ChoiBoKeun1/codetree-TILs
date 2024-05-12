@@ -1,98 +1,94 @@
-n, m, t, k = map(int, input().split())
-
+# 첫번째 입력
+n,m,t,k = map(int, input().split())
 grid = [
     [[] for _ in range(n)]
     for _ in range(n)
 ]
+next_grid = [
+    [[] for _ in range(n)]
+    for _ in range(n)
+]
 
-turn_dict = {
-    "U": "D",
-    "R": "L",
-    "D": "U",
-    "L": "R",
+def in_range(x,y):
+    return 0 <= x and x < n and 0 <= y and y < n
+
+def next_pos(x,y, vnum, move_dir):
+    dxs = [-1,0,0,1]
+    dys = [0,1,-1,0]
+
+    for _ in range(vnum):
+        nx = x + dxs[move_dir]
+        ny = y + dys[move_dir]
+
+        if not in_range(nx,ny):
+            move_dir = 3 - move_dir
+
+            nx = x + dxs[move_dir]
+            ny = y + dys[move_dir]
+
+        x,y = nx,ny
+
+    return (x,y,move_dir)
+
+def move_all():
+    for x in range(n):
+        for y in range(n):
+            for v, num, move_dir in grid[x][y]:
+                next_x,next_y,next_dir = next_pos(x,y,v,move_dir)
+                next_grid[next_x][next_y].append((v,num,next_dir))
+
+def select_marbles():
+    for i in range(n):
+        for j in range(n):
+            if len(next_grid[i][j]) >= k:
+                # 각 칸을 정렬한다
+                # 우선순위 1번 v
+                # 우선순위 2번 num
+                # 그것을 위한 x[0],x[1] 내림차순 정렬
+                next_grid[i][j].sort(key=lambda x: (-x[0], -x[1]))
+                
+                # 각 칸에 구슬 개수가 k보다 크면 계속 pop.
+                while len(next_grid[i][j]) > k:
+                    next_grid[i][j].pop()
+
+def simulate():
+    # 1. next grid 초기화
+    for i in range(n):
+        for j in range(n):
+            next_grid[i][j] = []
+
+    # 2. 모든 구슬을 움직인다
+    move_all()
+
+    # 3. 각 칸마다, 구슬이 최대 k개만 있도록 조정한다.
+    select_marbles()
+
+    # 4. next grid 값을 grid로 옮긴다.
+    for i in range(n):
+        for j in range(n):
+            grid[i][j] = next_grid[i][j]
+
+dir_mapper = {
+    'U': 0,
+    'R': 1,
+    'L': 2,
+    'D': 3
 }
 
-d_coord_dict = {
-    "U": (-1, 0),
-    "R": (0, 1),
-    "D": (1, 0),
-    "L": (0, -1)
-}
+# 두번째 입력
+for i in range(1, m+1):
+    r,c,d,v = tuple(input().split())
+    r,c,v = tuple(map(int, [r,c,v]))
 
+    grid[r-1][c-1].append((v, i, dir_mapper[d]))
 
-def in_range(row, col):
-    return 0 <= row < n and 0 <= col < n 
-
-def gen_coord(row, col, d):
-    d_row, d_col = d_coord_dict[d]
-    n_row, n_col = row + d_row, col + d_col
-    return (n_row, n_col)
-
-class Ball:
-    def __init__(self, row, col, d, p, i):
-        self.row = row
-        self.col = col
-        self.d = d
-        self.p = p
-        self.i = i
-        self.status = True
-    
-    def move(self, _grid):
-        if not self.status:
-            return
-
-        for _ in range(self.p):
-            n_row, n_col = gen_coord(self.row, self.col, self.d)
-            if not in_range(n_row, n_col):
-                self.d = turn_dict[self.d]
-                n_row, n_col = gen_coord(self.row, self.col, self.d)
-        
-            self.row, self.col = n_row, n_col
-
-        n_target = _grid[self.row][self.col]
-
-        if len(n_target) < k:
-            n_target.append(self)
-            
-        else:   
-            last = n_target[len(n_target) - 1]
-            if self.p > last.p or self.p == last.p and self.i > last.i:
-                n_target.pop().status = False
-                n_target.append(self)
-            else:
-                self.status = False
-
-        n_target.sort(lambda x: (x.p, x.i), reverse=True)
-
-ball_list = []
-
-for i in range(m):
-    _row, _col, d, _p = input().split()
-    
-    row = int(_row) - 1
-    col = int(_col) - 1
-    p = int(_p)
-
-    ball = Ball(row, col, d, p, i)
-
-    grid[row][col].append(ball)
-    ball_list.append(ball)
-
+# t초 동안 시뮬레이션
 for _ in range(t):
-    _grid = [
-        [[] for _ in range(n)]
-        for _ in range(n)
-    ]
+    simulate()
 
-    for ball in ball_list:
-        ball.move(_grid)
-
-    grid = _grid
-
-cnt = 0
-
-for ball in ball_list:
-    if ball.status:
-        cnt += 1
-    
-print(cnt)
+ans = sum([
+    len(grid[i][j])
+    for i in range(n)
+    for j in range(n)
+])
+print(ans)
