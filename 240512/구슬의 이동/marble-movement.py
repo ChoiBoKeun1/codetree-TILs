@@ -1,95 +1,98 @@
-n,m,t,k = map(int,input().split())
+n, m, t, k = map(int, input().split())
 
-arr = [
+grid = [
     [[] for _ in range(n)]
     for _ in range(n)
 ]
 
-next_arr = [
-    [[] for _ in range(n)]
-    for _ in range(n)
-]
-
-mapper = {
-    'U': 0,
-    'R': 1,
-    'L': 2,
-    'D': 3
+turn_dict = {
+    "U": "D",
+    "R": "L",
+    "D": "U",
+    "L": "R",
 }
 
-def Print():
-    for i in range(n):
-        for j in range(n):
-            for k in range(len(arr[i][j])):
-                print(len(arr[i][j]), end=' ')
+d_coord_dict = {
+    "U": (-1, 0),
+    "R": (0, 1),
+    "D": (1, 0),
+    "L": (0, -1)
+}
 
-def in_range(x,y):
-    return 0 <= x and x < n and 0 <= y and y < n
 
-def next_pos(x,y, move_dir, v):
-    dxs = [-1,0,0,1]
-    dys = [0,1,-1,0]
+def in_range(row, col):
+    return 0 <= row < n and 0 <= col < n 
 
-    while v:
-        nx = x + dxs[move_dir]
-        ny = y + dys[move_dir]
+def gen_coord(row, col, d):
+    d_row, d_col = d_coord_dict[d]
+    n_row, n_col = row + d_row, col + d_col
+    return (n_row, n_col)
 
-        if not in_range(nx,ny):
-            move_dir = 3 - move_dir
-            
-            nx = x + dxs[move_dir]
-            ny = y + dys[move_dir]
+class Ball:
+    def __init__(self, row, col, d, p, i):
+        self.row = row
+        self.col = col
+        self.d = d
+        self.p = p
+        self.i = i
+        self.status = True
+    
+    def move(self, _grid):
+        if not self.status:
+            return
+
+        for _ in range(self.p):
+            n_row, n_col = gen_coord(self.row, self.col, self.d)
+            if not in_range(n_row, n_col):
+                self.d = turn_dict[self.d]
+                n_row, n_col = gen_coord(self.row, self.col, self.d)
         
-        x,y = nx,ny
-        v -= 1
+            self.row, self.col = n_row, n_col
 
-    return (x,y,move_dir)
+        n_target = _grid[self.row][self.col]
 
-def move_all():
-    for r in range(n):
-        for c in range(n):
-            for i in range(len(arr[r][c])):
-                v, num, move_dir = arr[r][c][i]
+        if len(n_target) < k:
+            n_target.append(self)
+            
+        else:   
+            last = n_target[len(n_target) - 1]
+            if self.p > last.p or self.p == last.p and self.i > last.i:
+                n_target.pop().status = False
+                n_target.append(self)
+            else:
+                self.status = False
 
-                next_x,next_y, next_dir = next_pos(r,c, move_dir, (-1) * v)
-                next_arr[next_x][next_y].append((v,num,next_dir))
+        n_target.sort(lambda x: (x.p, x.i), reverse=True)
 
-def select_marbles():
-    for r in range(n):
-        for j in range(n):
-            if len(next_arr[r][c]) >= k:
-                next_arr[r][c].sort()
-                while len(next_arr[r][c]) > k:
-                    next_arr[r][c].pop()
-
-def simulate():
-    for i in range(n):
-        for j in range(n):
-            next_arr[i][j].clear()
-
-    move_all()
-
-    select_marbles()
-
-    for i in range(n):
-        for j in range(n):
-            arr[i][j] = next_arr[i][j]
+ball_list = []
 
 for i in range(m):
-    r,c,d,v = input().split()
-    r,c,v = int(r),int(c),int(v)
+    _row, _col, d, _p = input().split()
+    
+    row = int(_row) - 1
+    col = int(_col) - 1
+    p = int(_p)
 
-    arr[r-1][c-1].append(
-        ( (-1)*v, (-1)*(i+1), mapper[d] )
-    )
+    ball = Ball(row, col, d, p, i)
 
-while t:
-    simulate()
+    grid[row][col].append(ball)
+    ball_list.append(ball)
 
-    t -= 1
+for _ in range(t):
+    _grid = [
+        [[] for _ in range(n)]
+        for _ in range(n)
+    ]
 
-ans = 0
-for i in range(n):
-    for j in range(n):
-        ans += len(arr[i][j])
-print(ans)
+    for ball in ball_list:
+        ball.move(_grid)
+
+    grid = _grid
+
+cnt = 0
+
+for ball in ball_list:
+    if ball.status:
+        cnt += 1
+    
+print(cnt)
