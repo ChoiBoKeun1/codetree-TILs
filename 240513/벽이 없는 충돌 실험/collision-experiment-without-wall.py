@@ -20,8 +20,7 @@ last_collision_time = -1
 
 mapper = {'U': 0, 'R': 1, 'D': 2, 'L': 3}
 
-def in_range(marble):
-    x,y,_,_,_ = marble
+def in_range(x,y):
     return 0 <= x and x <= COORD_SIZE and 0 <= y and y <= COORD_SIZE
 
 # 구슬이 움직인 위치에 이미 구슬이 있는지를 확인
@@ -95,7 +94,7 @@ def simulate():
 
     # 4. 사용한 next_marbles, next_marble_idx 리스트 초기화
     for x,y,_,_,_ in next_marbles:
-        next_marbles_idx[x][y] = BLANK
+        next_marble_idx[x][y] = BLANK
     next_marbles = []
 
 # main함수
