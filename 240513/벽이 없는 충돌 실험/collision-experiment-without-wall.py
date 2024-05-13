@@ -99,6 +99,10 @@ def simulate():
 
 # main함수
 for _ in range(t):
+    # 테스트케이스 시작 시, marbles 리스트와 마지막 충돌시간 초기화
+    marbles = []
+    last_collision_time = -1
+
     n = int(input())
 
     for i in range(1, n+1):
