@@ -1,34 +1,27 @@
 n = int(input())
-arr = []
+arr = [
+    list(map(int,input().split()))
+    for _ in range(n)
+]
 
-bombs = []
-bomb_list = []
-
-ans = 0
-
-EXPLODED = 4
-
-for i in range(n):
-    row = list(map(int,input().split()))
-    for j in range(len(row)):
-        if row[j] == 1:
-            bombs.append((i,j))
-    arr.append(row)
-
-num_of_bomb = len(bombs)
-
-initial_arr = [[0]*n for _ in range(n)]
+# 폭탄의 위치 기록
+bomb_pos = []
 for i in range(n):
     for j in range(n):
-        initial_arr[i][j] = arr[i][j]
+        if arr[i][j] == 1:
+            bomb_pos.append((i,j))
+
+# 선택된 폭탄의 type
+selected_bomb_types = []
 
 def in_range(x,y):
     return 0 <= x and x < n and 0 <= y and y < n
 
-def clear_arr():
-    for i in range(n):
-        for j in range(n):
-            arr[i][j] = initial_arr[i][j]    
+def copy_arr(arr):
+    return [
+        [arr[i][j] for i in range(n)]
+        for j in range(n)
+    ]
 
 def get_exploded_numbers():
     return sum(
@@ -39,44 +32,44 @@ def get_exploded_numbers():
     )
 
 def recursive(cnt):
-    global ans 
-
-    if cnt == num_of_bomb:
+    if cnt == len(bomb_pos):
         explode_all()
-        ans = max(ans,get_exploded_numbers())
-        clear_arr()
         return
 
-    for bomb in bombs:
-        x,y = bomb
-        for num in range(1,4):
-            bomb_list.append((x,y,num))
-            recursive(cnt +1)
-            bomb_list.pop()
+    for bomb_type in range(3):
+        selected_bomb_types.append(bomb_type)
+        recursive(cnt +1)
+        selected_bomb_types.pop()
 
+def explode(x,y,bomb_type):
+    dxdy_set = [
+        ([-2,-1,1,2], [0,0,0,0]),
+        ([-1,1,0,0], [0,0,1,-1]),
+        ([-1,-1,1,1], [-1,1,-1,1])
+    ]
+    dxs, dys = dxdy_set[bomb_type]
 
-def explode(x,y,num):
-    if num == 1:
-        dxs = [0,1,-1,2,-2]
-        dys = [0,0,0,0,0]
-    elif num == 2:
-        dxs = [0,1,0,-1,0]
-        dys = [0,0,1,0,-1]
-    elif num == 3:
-        dxs = [0,1,1,-1,-1]
-        dys = [0,1,-1,1,-1]
-    
     for dx,dy in zip(dxs,dys):
         nx = x + dx
         ny = y + dy
 
-        if in_range(nx,ny):
-            arr[nx][ny] = EXPLODED
-
+        if in_range(nx,ny) and arr[nx][ny] != 1:
+            arr[nx][ny] = 1
 
 def explode_all():
-    for x,y,num in bomb_list:
-        explode(x,y,num)
+    global ans, arr
 
+    tmp = copy_arr(arr)
+    for num in range(len(bomb_pos)):
+        x,y = bomb_pos[num]
+        bomb_type = selected_bomb_types[num]
+        explode(x,y,bomb_type)
+
+    ans = max(ans,get_exploded_numbers())
+
+    # arr 원상복구
+    arr = copy_arr(tmp)
+
+ans = 0
 recursive(0)
 print(ans)
