@@ -1,8 +1,7 @@
 n = int(input())
 arr = []
 
-num_of_bomb = 0
-
+bombs = []
 bomb_list = []
 
 ans = 0
@@ -11,11 +10,12 @@ EXPLODED = 4
 
 for i in range(n):
     row = list(map(int,input().split()))
-    for elem in row:
-        if elem == 1:
-            num_of_bomb += 1
+    for j in range(len(row)):
+        if row[j] == 1:
+            bombs.append((i,j))
     arr.append(row)
 
+num_of_bomb = len(bombs)
 
 initial_arr = [[0]*n for _ in range(n)]
 for i in range(n):
@@ -47,13 +47,12 @@ def recursive(cnt):
         clear_arr()
         return
 
-    for i in range(n):
-        for j in range(n):
-            if arr[i][j] == 1:
-                for num in range(1,4):
-                    bomb_list.append((i,j,num))
-                    recursive(cnt +1)
-                    bomb_list.pop()
+    for bomb in bombs:
+        x,y = bomb
+        for num in range(1,4):
+            bomb_list.append((x,y,num))
+            recursive(cnt +1)
+            bomb_list.pop()
 
 
 def explode(x,y,num):
