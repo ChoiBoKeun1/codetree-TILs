@@ -4,47 +4,36 @@ lines = [
     for _ in range(n)
 ]
 
-main_line = [0] * 1001
-
-selected_line_idx = []
-
-overlapped_lines = 0
+selected_lines = []
 ans = 0
 
 def is_overlapped():
-    for elem in main_line:
-        if elem > 1:
-            return True
-    return False
+    for idx1,v1 in enumerate(selected_lines):
+        for idx2,v2 in enumerate(selected_lines):
+            x1,y1 = v1
+            x2,y2 = v2
 
-def recursive(num):
-    global overlapped_lines, ans
+            if idx1 != idx2:
+                if x1 <= x2 <= y1 or x1 <= y2 <= y1 or \
+                    x2 <= x1 < y2 or x2 <= y1 <= y2:
+                    return False
+    
+    return True
 
-    if is_overlapped():
-        ans = max(ans, overlapped_lines -1)        
-        return        
+def recursive(cnt):
+    global ans
 
-    for i in range(0,n):
-        selected_line_idx.append(i)
-        draw_line(i)
-        overlapped_lines += 1
-        recursive(num +1)
+    if cnt == n:
+        if is_overlapped():
+            ans = max(ans, len(selected_lines))
         
-        erase_line(i)
-        overlapped_lines -= 1
-        selected_line_idx.pop()
+        return
+    
+    selected_lines.append(lines[cnt])
+    recursive(cnt +1)
+    selected_lines.pop()
 
-def draw_line(idx):
-    x1,x2 = lines[idx]
-
-    for i in range(x1, x2+1):
-        main_line[i] += 1
-
-def erase_line(idx):
-    x1,x2 = lines[idx]
-
-    for i in range(x1, x2+1):
-        main_line[i] -= 1
+    recursive(cnt +1)
 
 recursive(0)
 print(ans)
