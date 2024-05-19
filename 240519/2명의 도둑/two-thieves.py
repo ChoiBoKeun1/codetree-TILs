@@ -45,7 +45,6 @@ def check():
         weight1 += elem
         if weight1 > c:
             weight1 -= elem
-            break
         else:
             cost1 += elem*elem
 
@@ -55,7 +54,6 @@ def check():
         weight2 += elem
         if weight2 > c:
             weight2 -= elem
-            break
         else:
             cost2 += elem*elem
 
