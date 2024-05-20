@@ -1,3 +1,5 @@
+import sys
+
 s = input()
 
 n = len(s)
@@ -16,12 +18,12 @@ for elem in s:
 num_nums = n // 2 +1
 num_cmds = n // 2
 
-ans = 0
+ans = -sys.maxsize
 
 def recursive(cnt):
     global ans, num_mapper
 
-    if cnt == num_nums:
+    if cnt == 6:
         make_nums()
         ans = max(ans, calculate())
         return
