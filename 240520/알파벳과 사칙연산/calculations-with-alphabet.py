@@ -2,6 +2,9 @@ s = input()
 
 n = len(s)
 
+# num_mapper[0] = 1 --> a 에 1을 대입시키겠다는 뜻
+# num_mapper[3] = 2 --> c에 3를 대입시키겠다는 뜻
+num_mapper = []
 nums = []
 cmds = []
 
@@ -18,14 +21,22 @@ def recursive(cnt):
     global ans
 
     if cnt == num_nums:
+        make_nums()
         ans = max(ans, calculate())
         return
 
     for i in range(1,5):
-        nums.append(i)
+        num_mapper.append(i)
         recursive(cnt +1)
-        nums.pop()
+        num_mapper.pop()
 
+def make_nums():
+    global nums
+
+    nums = []
+    for elem in s:
+        if 'a' <= elem and elem <= 'f':    
+            nums.append(num_mapper[ord(elem) - ord('a')])
 
 def calculate():
     result = 0
