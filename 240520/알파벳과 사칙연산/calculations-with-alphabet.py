@@ -1,65 +1,45 @@
 import sys
 
 s = input()
+n = 6
 
-n = len(s)
-
-# num_mapper[0] = 1 --> a 에 1을 대입시키겠다는 뜻
-# num_mapper[3] = 2 --> c에 3를 대입시키겠다는 뜻
-num_mapper = []
-mapper = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5}
-nums = []
-cmds = []
-
-for elem in s:
-    if elem == '+' or elem == '-' or elem == '*':
-        cmds.append(elem)
-
-num_nums = n // 2 +1
-num_cmds = n // 2
+# num[0] ~ num[5] : a ~ f를 뜻한다
+# num[0] = 1 --> a에 1을 대입하겠다는 뜻
+num = [0 for _ in range(n)]
 
 ans = -sys.maxsize
 
-def recursive(cnt):
-    global ans, num_mapper
+def mapping(idx):
+    # ex) s[idx] == 'a' 일때, num[0]값이 return 되도록 한다
+    return num[ord(s[idx]) - ord('a')]
 
-    if cnt == 6:
-        make_nums()
+def calculate():
+    length = len(s)
+    value = mapping(0)
+
+    for i in range(2, length, 2):
+        if s[i-1] == '+':
+            value += mapping(i)
+        elif s[i-1] == '-':
+            value -= mapping(i)
+        else:
+            value *= mapping(i)
+    
+    return value
+
+def find_max(cnt):
+    global ans
+
+    if cnt == n:
         ans = max(ans, calculate())
         return
 
+    # a ~ f 까지 순서대로
+    # 0 ~ 5 까지 순서대로
+    # 1~4 중 하나로 채운다
     for i in range(1,5):
-        num_mapper.append(i)
-        recursive(cnt +1)
-        num_mapper.pop()
+        num[cnt] = i
+        find_max(cnt +1)
 
-def make_nums():
-    global nums
-
-    nums = []
-    for elem in s:
-        if 'a' <= elem and elem <= 'f':    
-            nums.append(num_mapper[mapper[elem]])
-
-def calculate():
-    result = 0
-    
-    # 식이 문자 하나만 있는 경우. ex) a
-    if num_cmds == 0:
-        return 4
-
-    for i in range(num_cmds):
-        if i == 0:
-            result += nums[i]    
-    
-        if cmds[i] == '+':
-            result += nums[i+1]
-        elif cmds[i] == '-':
-            result -= nums[i+1]
-        elif cmds[i] == '*':
-            result *= nums[i+1]
-
-    return result
-
-recursive(0)
+find_max(0)
 print(ans)
