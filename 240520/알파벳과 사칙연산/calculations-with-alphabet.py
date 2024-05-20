@@ -18,7 +18,7 @@ num_cmds = n // 2
 ans = 0
 
 def recursive(cnt):
-    global ans
+    global ans, num_mapper
 
     if cnt == num_nums:
         make_nums()
