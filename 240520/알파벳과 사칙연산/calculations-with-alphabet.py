@@ -5,6 +5,7 @@ n = len(s)
 # num_mapper[0] = 1 --> a 에 1을 대입시키겠다는 뜻
 # num_mapper[3] = 2 --> c에 3를 대입시키겠다는 뜻
 num_mapper = []
+mapper = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5}
 nums = []
 cmds = []
 
@@ -36,7 +37,7 @@ def make_nums():
     nums = []
     for elem in s:
         if 'a' <= elem and elem <= 'f':    
-            nums.append(num_mapper[ord(elem) - ord('a')])
+            nums.append(num_mapper[mapper[elem]])
 
 def calculate():
     result = 0
