@@ -29,6 +29,11 @@ def recursive(cnt):
 
 def calculate():
     result = 0
+    
+    # 식이 문자 하나만 있는 경우. ex) a
+    if num_cmds == 0:
+        return 4
+
     for i in range(num_cmds):
         if i == 0:
             result += nums[i]    
