@@ -10,9 +10,11 @@ def choose(cnt):
         return
 
     for i in range(1, k+1):
-        if arr.count(i) < 2:
-            arr.append(i)
-            choose(cnt +1)
-            arr.pop()
+        if len(arr) >= 2 and arr[-1] == arr[-2] == i:
+            continue
+            
+        arr.append(i)
+        choose(cnt +1)
+        arr.pop()
 
 choose(0)
