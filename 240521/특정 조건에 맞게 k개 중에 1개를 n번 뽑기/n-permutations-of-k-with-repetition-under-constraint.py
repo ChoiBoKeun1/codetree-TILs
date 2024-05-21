@@ -10,7 +10,7 @@ def choose(cnt):
         return
 
     for i in range(1, k+1):
-        if len(arr) >= 2 and arr[-1] == arr[-2] == i:
+        if cnt >= 2 and arr[-1] == arr[-2] == i:
             continue
             
         arr.append(i)
