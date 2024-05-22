@@ -1,45 +1,42 @@
 n,m,k = map(int,input().split())
+nums = list(map(int,input().split()))
 
-
-dist = list(map(int,input().split()))
-
-# i번 말이 원소값만큼 전진할거임
-pieces = [0] * (k+1)
-
-# 선택된 말
-selected_pieces = []
-
-# k개의 말, n번의 전진, 각 전진은 dist[] 원소 숫자만큼 전진 가능
-# m번(끝)에 도착시 1점을 받는다
+# 말들의 현재 위치를 표시
+# 시작위치 : 1
+pieces = [1 for _ in range(k)]
 
 ans = 0
 
-def move_all():
-    pieces = [0] * (k+1)
-
-    for i in range(n):
-        pieces[selected_pieces[i]] += dist[i]
-
+def calc():
     score = 0
-    for elem in pieces:
-        if 1 + elem >= m:
-            score += 1
+    for piece in pieces:
+        score += (piece >= m)
     
     return score
 
-def choose(cnt):
+def find_max(cnt):
     global ans
 
+    # 밑에서 그냥 넘어간 경우에
+    # 즉 find_max(cnt+1) 함수를 거치지 않은 경우에
+    # if cnt == n 조건문이 걸리지 않는 경우가 생긴다
+    # 그러므로, ans를 업데이트하는 코드는 if문 바깥에 적는다.
+    ans = max(ans, calc())
+
     if cnt == n:
-        score = move_all()
-        ans = max(ans, score)
         return
 
-    for i in range(1, k+1):
-        selected_pieces.append(i)
-        choose(cnt +1)
-        selected_pieces.pop()
-
+    for i in range(k):
+        # i번째 말의 현재 위치가 m보다 크다
+        # 이미 m번 칸에 도착했다고 판단하고
+        # 이후에 이 i번째 말이 선택될 경우는, 그냥 넘어간다.
+        if pieces[i] >= m:
+            continue
+        
+        # i번째 말 nums[cnt]만큼 전진
+        pieces[i] += nums[cnt]
+        find_max(cnt +1)
+        pieces[i] -= nums[cnt]
 
 choose(0)
 print(ans)
