@@ -3,6 +3,7 @@ import sys
 n = int(input())
 
 arr = []
+numbers = [4,5,6]
 
 def is_possible():
     length = 1
@@ -23,7 +24,7 @@ def is_possible():
 def find_min_arr(cnt):
     if cnt == n: 
         for elem in arr:
-            print(arr, end='')
+            print(elem, end='')
         sys.exit(0)
 
     for number in numbers:
