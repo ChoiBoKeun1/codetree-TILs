@@ -1,29 +1,35 @@
+import sys
+
 n = int(input())
 
 arr = []
 
 def is_possible():
-    length = len(arr)
-    for i in range(1, length//2 + 1):
-        if arr[-i:] == arr[-2*i:-i]:
+    length = 1
+    while True:
+        start1,end1 = len(arr) - length, len(arr) - 1
+        start2,end2 = start1 - length, start1 - 1
+
+        if start2 < 0:
+            break
+
+        if arr[start1 : end1 +1] == arr[start2 : end2 +1]:
             return False
+
+        length += 1
+    
     return True
 
-def find_max(cnt):
-    global arr
-
+def find_min_arr(cnt):
     if cnt == n: 
-        return arr
+        for elem in arr:
+            print(arr, end='')
+        sys.exit(0)
 
-    for i in range(4, 6+1):
-        arr.append(i)
+    for number in numbers:
+        arr.append(number)
         if is_possible():
-            result = find_max(cnt+1)
-            if result:
-                return result
+            find_min_arr(cnt+1)
         arr.pop()
-        
-    return None
 
-for elem in find_max(0):
-    print(elem,end='')
+find_min_arr(0)
