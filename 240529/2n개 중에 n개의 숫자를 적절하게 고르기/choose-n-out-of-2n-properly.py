@@ -4,7 +4,7 @@ INT_MAX = sys.maxsize
 n = int(input())
 arr = list(map(int,input().split()))
 
-list1, list2 = list(), list()
+list1 = list()
 
 all_sum = sum(arr)
 
@@ -21,7 +21,7 @@ def make_list(start, cnt):
 
     for i in range(start, 2*n):
         list1.append(arr[i])
-        make_list(start +i, cnt +1)
+        make_list(i+1, cnt +1)
         list1.pop()
 
 
