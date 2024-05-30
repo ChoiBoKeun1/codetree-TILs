@@ -19,8 +19,7 @@ def calc():
 def get_dist(start, cnt):
     global dist
 
-    if cnt == 2:
-        dist = 0
+    if cnt == 2:        
         dist = max(dist,calc())
         return
 
@@ -36,6 +35,7 @@ def choose(start, cnt):
     if cnt == m:
         get_dist(0,0)
         ans = min(ans, dist)
+        dist = 0
         return
 
     for i in range(start, n):
