@@ -7,18 +7,34 @@ points = [
     for _ in range(n)
 ]
 selected = []
+selected2 = []
+dist = 0
 ans = INT_MAX
 
-def get_dist():
-    x1,y1 = selected[0]
-    x2,y2 = selected[1]
-    return (x1-x2) ** 2 + (y1-y2) ** 2
+def calc():
+    x1,y1 = selected2[0]
+    x2,y2 = selected2[1]
+    return (x1-x2)**2 + (y1-y2)**2
+
+def get_dist(start, cnt):
+    global dist
+
+    if cnt == 2:
+        dist = max(dist,calc())
+        return
+
+    for i in range(start, m):
+        selected2.append(selected[i])
+        get_dist(i+1, cnt+1)
+        selected2.pop()
+
 
 def choose(start, cnt):
-    global ans
+    global ans, dist
 
     if cnt == m:
-        ans = min(ans, get_dist())
+        get_dist(0,0)
+        ans = min(ans, dist)
         return
 
     for i in range(start, n):
