@@ -20,6 +20,7 @@ def get_dist(start, cnt):
     global dist
 
     if cnt == 2:
+        dist = 0
         dist = max(dist,calc())
         return
 
