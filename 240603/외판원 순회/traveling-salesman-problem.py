@@ -22,7 +22,7 @@ def calc():
         
         if val == 0:
             permutation.pop()
-            return 0
+            return INT_MAX
         
         result += val
     
