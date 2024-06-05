@@ -7,12 +7,11 @@ graph = [
 ]
 
 visited = [False] * (n+1)
-
 ans = 0
 
 def dfs(v):
     global ans
-    
+
     for cur_v in range(1, n+1):
         if graph[v][cur_v] and not visited[cur_v]:
             ans += 1
@@ -20,20 +19,43 @@ def dfs(v):
             dfs(cur_v)
 
 # 간선 표현
-start_points = []
-end_points = []
-for i in range(m):
-    s,e = map(int,input().split())
-    start_points.append(s)
-    end_points.append(e)    
-
-for start, end in zip(start_points, end_points):
-    graph[start][end] = 1
-    graph[end][start] = 1
-
+for _ in range(m):
+    v1, v2 = map(int,input().split())
+    
+    graph[v1][v2] = 1
+    graph[v2][v1] = 1
 
 # main
-root_vertex = 1
-visited[root_vertex] = True
-dfs(root_vertex)
+visited[1] = True
+dfs(1)
 print(ans)
+
+'''
+# adjacency list
+graph = [
+    []
+    for _ in range(n+1)
+]
+visited = [False] * (n+1)
+ans = 0
+
+def dfs(v):
+    global ans
+
+    for cur_v in graph[v]:
+        if not visited[cur_v]:
+            visited[cur_v] = True
+            ans += 1
+            dfs(cur_v)
+
+# 간선 표현
+for i in range(m):
+    v1, v2 = map(int, input().split())
+    graph[v1].append(v2)
+    graph[v2].append(v1)
+
+visited[1] = True
+dfs(1)
+
+print(ans)
+'''
