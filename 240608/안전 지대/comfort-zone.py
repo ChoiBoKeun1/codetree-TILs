@@ -45,7 +45,7 @@ def dfs(x,y, k):
             dfs(nx,ny, k)
 
 max_area = 0
-ans = 0
+ans = 1
 
 # main
 for k in range(1, 101):
