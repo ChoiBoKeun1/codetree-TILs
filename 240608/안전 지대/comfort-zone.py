@@ -1,5 +1,5 @@
 import sys
-sys.setrecursionlimit(10**4)
+sys.setrecursionlimit(2500)
 
 n,m = map(int,input().split())
 arr = [
@@ -51,6 +51,7 @@ max_area = 0
 ans = 1
 
 # main
+# 시간복잡도 : O(nm) 을 k 번 시도. ==> O(knm)
 for k in range(1, 101):
     num_of_area = 0
     
