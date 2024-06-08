@@ -1,3 +1,6 @@
+import sys
+sys.setrecursionlimit(10**4)
+
 n,m = map(int,input().split())
 arr = [
     list(map(int,input().split()))
