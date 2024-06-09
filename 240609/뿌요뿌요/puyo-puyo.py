@@ -11,7 +11,7 @@ visited = [
 ]
 
 ans = 0
-cur_num = 0
+cur_block_num = 0
 
 cur_size = 0
 max_size = 0
@@ -26,20 +26,20 @@ def print_arr(arr):
 def in_range(x,y):
     return 0 <= x and x < n and 0 <= y and y < n
 
-def can_go(x,y):
+def can_go(x,y, color):
     if not in_range(x,y):
         return False
     
     if visited[x][y]:
         return False
 
-    if arr[x][y] != cur_num:
+    if arr[x][y] != color:
         return False
 
     return True
 
 def dfs(x,y):
-    global cur_size
+    global cur_block_size
 
     dxs = [1,0,-1,0]
     dys = [0,1,0,-1]
@@ -48,9 +48,9 @@ def dfs(x,y):
         nx = x + dx
         ny = y + dy
 
-        if can_go(nx,ny):
+        if can_go(nx,ny, arr[x][y]):
             visited[nx][ny] = True
-            cur_size += 1
+            cur_block_size += 1
             dfs(nx,ny)
             
 # main
@@ -58,15 +58,15 @@ for x in range(n):
     for y in range(n):
         if not visited[x][y]:
             visited[x][y] = True
-            cur_size = 1
+            cur_block_size = 1
+            
             cur_num = arr[x][y]
             
             dfs(x,y)
 
-            if cur_size >= 4:
+            if cur_block_size >= 4:
                 ans += 1
 
-            if max_size < cur_size:
-                max_size = cur_size
+            max_size = max(max_size, cur_block_size)
 
 print(ans, max_size)
