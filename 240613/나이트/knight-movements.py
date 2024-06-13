@@ -3,6 +3,9 @@ q = deque()
 
 n = int(input())
 r1,c1, r2,c2 = map(int,input().split())
+r1,c1 = r1-1, c1-1
+r2,c2 = r2-1, c2-1
+
 
 visited = [
     [False for _ in range(n)]
@@ -10,7 +13,7 @@ visited = [
 ]
 
 step = [
-    [0 for _ in range(n)]
+    [-1 for _ in range(n)]
     for _ in range(n)
 ]
 
@@ -46,3 +49,5 @@ def bfs():
                 push(nx,ny, step[x][y]+1)
 
 push(r1,c1,0)
+bfs()
+print(step[r2][c2])
