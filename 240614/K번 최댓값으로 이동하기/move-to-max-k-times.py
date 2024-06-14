@@ -61,10 +61,11 @@ def bfs():
                     r,c = nx,ny
                 
                 if new_num == arr[nx][ny]:
-                    if r > nx or c > ny:
-                        r = nx
-                        c = ny
-                    
+                    if r > nx:
+                        r,c = nx,ny
+                    elif r == nx and c > ny:
+                        r,c = nx,ny
+
     if new_num == 0:
         return    
     cur_num = new_num
