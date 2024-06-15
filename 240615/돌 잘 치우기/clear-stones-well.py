@@ -11,10 +11,8 @@ visited = [
     for _ in range(n)
 ]
 
-start_pos = []
-
 ans = 0
-
+start_pos = []
 stones = [
     (i,j)
     for i in range(n)
@@ -23,24 +21,7 @@ stones = [
 ]
 selected_stones = []
 
-def backtrack(cur_num, cnt):
-    global ans
-
-    if cnt > m:
-        return
-    
-    if cur_num == len(stones):
-        if cnt == m:
-            ans = max(ans, calc())
-        return
-
-    selected_stones.append(stones[cur_num])
-    backtrack(cur_num+1, cnt+1)
-    selected_stones.pop()
-
-    backtrack(cur_num+1, cnt)
-
-# ------------------------------
+# ----------------------------
 def in_range(x,y):
     return 0 <= x and x < n and 0 <= y and y < n
 
@@ -61,23 +42,20 @@ def bfs():
                 q.append((nx,ny))
 
 def calc():
-    for selected_stone in selected_stones:
-        x,y = selected_stone
+    for x,y in selected_stones:
         arr[x][y] = 0
 
     for i in range(n):
         for j in range(n):
             visited[i][j] = False
 
-    for pos in start_pos:
-        x,y = pos
+    for x,y in start_pos:
         visited[x][y] = True
         q.append((x,y))
 
     bfs()
 
-    for selected_stone in selected_stones:
-        x,y = selected_stone
+    for x,y in selected_stones:
         arr[x][y] = 1
 
     cnt = 0
@@ -87,15 +65,27 @@ def calc():
                 cnt += 1
 
     return cnt
-# -------------------------
+# ----------------------------
+
+def backtrack(idx, cnt):
+    global ans
+    
+    if idx == len(stones):
+        if cnt == m:
+            ans = max(ans, calc())
+        return
+
+    selected_stones.append(stones[idx])
+    backtrack(idx+1, cnt+1)
+    selected_stones.pop()
+
+    backtrack(idx+1, cnt)
+# ----------------------------
 
 # main
 for _ in range(k):
     r,c = map(int, input().split())
-    r,c = r-1,c-1
-    
-    start_pos.append((r,c))
+    start_pos.append((r-1,c-1))
 
 backtrack(0,0)
-    
 print(ans)
