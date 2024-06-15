@@ -96,6 +96,6 @@ for _ in range(k):
     
     start_pos.append((r,c))
 
-    backtrack(0,0)
+backtrack(0,0)
     
 print(ans)
