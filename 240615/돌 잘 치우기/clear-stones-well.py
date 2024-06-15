@@ -11,6 +11,8 @@ visited = [
     for _ in range(n)
 ]
 
+start_pos = []
+
 ans = 0
 
 stones = [
@@ -67,6 +69,11 @@ def calc():
         for j in range(n):
             visited[i][j] = False
 
+    for pos in start_pos:
+        x,y = pos
+        visited[x][y] = True
+        q.append((x,y))
+
     bfs()
 
     for selected_stone in selected_stones:
@@ -87,8 +94,7 @@ for _ in range(k):
     r,c = map(int, input().split())
     r,c = r-1,c-1
     
-    visited[r][c] = True
-    q.append((r,c))
+    start_pos.append((r,c))
 
     backtrack(0,0)
     
