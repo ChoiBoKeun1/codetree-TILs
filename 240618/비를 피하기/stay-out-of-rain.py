@@ -1,53 +1,75 @@
 from collections import deque
 
-def find_people_location():
-    temp = []
-    for i in range (size):
-        for j in range (size):
-            if grid[i][j] == 2:
-                temp.append((i, j))
-    return temp
+n,h,m = map(int,input().split())
+arr = [
+    list(map(int,input().split()))
+    for _ in range(n)
+]
 
-def is_range(x, y):
-    return x >= 0 and x < size and y >= 0 and y < size
+shelters = [
+    (i,j)
+    for i in range(n)
+    for j in range(n)
+    if arr[i][j] == 3
+]
+
+q = deque()
+visited = [
+    [False for _ in range(n)]
+    for _ in range(n)
+]
+step = [
+    [0 for _ in range(n)]
+    for _ in range(n)
+]
+
+def in_range(x,y):
+    return 0 <= x and x < n and 0 <= y and y < n
+
+def can_go(x,y):
+    if not in_range(x,y):
+        return False
+
+    if arr[x][y] == 1 or visited[x][y]:
+        return False
+
+    return True
+
+def push(x,y, new_step):
+    q.append((x,y))
+    visited[x][y] = True
+    step[x][y] = new_step
 
 def bfs():
-    dxs, dys = [0, 1, 0, -1], [1, 0, -1, 0]
+    while q:
+        x,y = q.popleft()
 
-    while queue:
-        x, y, value = queue.popleft()
-        
-        for dx, dy in zip(dxs, dys):
+        dxs, dys = [1,0,-1,0], [0,1,0,-1]
+
+        for dx,dy in zip(dxs,dys):
             nx, ny = x + dx, y + dy
-            if is_range(nx, ny) and not visited[nx][ny] and grid[nx][ny] != 1:
-                visited[nx][ny] = True # 방문 처리는 우선 해야함
-                
-                if grid[nx][ny] != 3: # 도착하지 않았다면
-                    queue.append((nx, ny, value + 1))
-                
-                elif grid[nx][ny] == 3: # 비를 피할 수 있는 곳에 도착했다면
-                    return value + 1 # 현재 distance 리턴 
-    
-    return -1 # 덱이 비었는데도 리턴이 안 됐으면 -1
 
-size, h, m = map(int, input().split())
-grid = [list(map(int, input().split())) for _ in range (size)]
-people = find_people_location()
+            if can_go(nx,ny):
+                push(nx, ny, step[x][y] +1)
 
-ans = [[0 for _ in range (size)] for _ in range (size)]
+# main
+# 비를 피할수 있는 모든 shelter들을 시작점으로 하는
+# bfs 진행
 
-# 한 명씩 하는 BFS
-for person in people:
-    x, y = person
-    
-    queue = deque([(x, y, 0)])
-    visited = [[False for _ in range (size)] for _ in range (size)]
-    visited[x][y] = True
-    
-    ans[x][y] = bfs()
+# shelter를 기준으로 진행했기 때문에
+# 한번의 bfs로 충분하다.
+for x,y in shelters:
+    push(x,y,0)
 
-# 정답 출력
-for line in ans:
-    for num in line:
-        print(num, end=" ")
+bfs()
+
+for i in range(n):
+    for j in range(n):
+        if arr[i][j] != 2:
+            print(0, end=' ')
+        else:
+            if not visited[i][j]:
+                print(-1, end=' ')
+            else:
+                print(step[i][j],end=' ')
     print()
