@@ -100,12 +100,10 @@ for x1,y1 in people():
 
     for x2,y2 in safe_places:
         #print("안전위치 : ", x2,y2)
-        if step[x2][y2] == 0:
-            answer[x1][y1] = -1
-        elif step[x2][y2] < answer[x1][y1]:
-            answer[x1][y1] = step[x2][y2]
+        if not step[x2][y2] == 0:
+            if step[x2][y2] < answer[x1][y1]:
+                answer[x1][y1] = step[x2][y2]
         
-
 for i in range(n):
     for j in range(n):
         if answer[i][j] == INT_MAX:
