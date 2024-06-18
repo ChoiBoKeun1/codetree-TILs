@@ -98,11 +98,15 @@ for x1,y1 in people():
 
     #print_arr(step)
 
+    hasAns = False
     for x2,y2 in safe_places:
         #print("안전위치 : ", x2,y2)
         if not step[x2][y2] == 0:
             if step[x2][y2] < answer[x1][y1]:
                 answer[x1][y1] = step[x2][y2]
+                hasAns = True
+    if not hasAns:
+        answer[x1][y1] = -1
         
 for i in range(n):
     for j in range(n):
