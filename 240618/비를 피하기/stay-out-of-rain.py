@@ -1,116 +1,53 @@
-import collections
-import sys
-q = collections.deque()
-INT_MAX = sys.maxsize
+from collections import deque
 
-n,h,m = map(int,input().split())
-arr = [
-    list(map(int,input().split()))
-    for _ in range(n)
-]
-visited = [
-    [False for _ in range(n)]
-    for _ in range(n)
-]
-step = [
-    [-1 for _ in range(n)]
-    for _ in range(n)
-]
-answer = [
-    [INT_MAX for _ in range(n)]
-    for _ in range(n)
-]
+def find_people_location():
+    temp = []
+    for i in range (size):
+        for j in range (size):
+            if grid[i][j] == 2:
+                temp.append((i, j))
+    return temp
 
-def in_range(x,y):
-    return 0 <= x and x < n and 0 <= y and y < n
-
-def can_go(x,y):
-    if not in_range(x,y):
-        return False
-
-    if visited[x][y] or arr[x][y] == 1:
-        return False
-
-    return True
-
-def clear_arr(arr):
-    for i in range(n):
-        for j in range(n):
-            arr[i][j] = 0
-
-def print_arr(arr):
-    for i in range(n):
-        for j in range(n):
-            print(arr[i][j],end=' ')
-        print()
-    print()
+def is_range(x, y):
+    return x >= 0 and x < size and y >= 0 and y < size
 
 def bfs():
-    dxs, dys = [1,0,-1,0], [0,1,0,-1]
+    dxs, dys = [0, 1, 0, -1], [1, 0, -1, 0]
 
-    while q:
-        x,y = q.popleft()
-
-        for dx,dy in zip(dxs,dys):
-            nx, ny = x + dx, y + dy
-
-            if can_go(nx,ny):
-                step[nx][ny] = step[x][y] + 1
-                visited[nx][ny] = True
-                q.append((nx,ny))
-
-
-def people():
-    new_list = []
-
-    for i in range(n):
-        for j in range(n):
-            if len(new_list) == h:
-                return new_list
-            if arr[i][j] == 2:
-                new_list.append((i,j))
-
-    return new_list
-
-def place():
-    new_list = []
-
-    for i in range(n):
-        for j in range(n):
-            if len(new_list) == m:
-                return new_list
-            if arr[i][j] == 3:
-                new_list.append((i,j))
-    return new_list
-
-# main
-safe_places = place()
-for x1,y1 in people():
-    #print("사람위치 : ", x1,y1)
-    clear_arr(visited)
-    clear_arr(step)
-
-    step[x1][y1] = 0
-    visited[x1][y1] = True
-    q.append((x1,y1))
-    
-    bfs()
-
-    #print_arr(step)
-
-    hasAns = False
-    for x2,y2 in safe_places:
-        #print("안전위치 : ", x2,y2)
-        if not step[x2][y2] == 0:
-            if step[x2][y2] < answer[x1][y1]:
-                answer[x1][y1] = step[x2][y2]
-                hasAns = True
-    if not hasAns:
-        answer[x1][y1] = -1
+    while queue:
+        x, y, value = queue.popleft()
         
-for i in range(n):
-    for j in range(n):
-        if answer[i][j] == INT_MAX:
-            answer[i][j] = 0
+        for dx, dy in zip(dxs, dys):
+            nx, ny = x + dx, y + dy
+            if is_range(nx, ny) and not visited[nx][ny] and grid[nx][ny] != 1:
+                visited[nx][ny] = True # 방문 처리는 우선 해야함
+                
+                if grid[nx][ny] != 3: # 도착하지 않았다면
+                    queue.append((nx, ny, value + 1))
+                
+                elif grid[nx][ny] == 3: # 비를 피할 수 있는 곳에 도착했다면
+                    return value + 1 # 현재 distance 리턴 
+    
+    return -1 # 덱이 비었는데도 리턴이 안 됐으면 -1
 
-print_arr(answer)
+size, h, m = map(int, input().split())
+grid = [list(map(int, input().split())) for _ in range (size)]
+people = find_people_location()
+
+ans = [[0 for _ in range (size)] for _ in range (size)]
+
+# 한 명씩 하는 BFS
+for person in people:
+    x, y = person
+    
+    queue = deque([(x, y, 0)])
+    visited = [[False for _ in range (size)] for _ in range (size)]
+    visited[x][y] = True
+    
+    ans[x][y] = bfs()
+
+# 정답 출력
+for line in ans:
+    for num in line:
+        print(num, end=" ")
+    print()
