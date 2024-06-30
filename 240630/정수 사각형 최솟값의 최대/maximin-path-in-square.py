@@ -28,6 +28,6 @@ def initialize():
 initialize()
 for i in range(1,n):
     for j in range(1,n):
-        dp[i][j] = max(min(dp[i-1][j], arr[i][j]), min(dp[i][j-1], arr[i][j]))
+        dp[i][j] = min(max(dp[i-1][j], dp[i][j-1]), arr[i][j])
 
 print(dp[n-1][n-1])
