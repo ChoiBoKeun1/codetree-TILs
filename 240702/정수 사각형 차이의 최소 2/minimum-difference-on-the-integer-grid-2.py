@@ -1,54 +1,71 @@
-N = int(input())
-max_number = 100
-gMap = [[float('inf')] * N for _ in range(N)]
-for j in range(N):
-    letter = list(map(int, input().split()))
-    for i in range(N):
-        gMap[j][i] = letter[i]
-# 지나가는데 최댓값이 가장 작아야 하고, 
-# 지나가는데 최솟값이 가장 커야 한다.
+import sys
 
-# 1번 조건은, 위 왼쪽 살폈을 때 가장 작은거 고르는데, 내가 그것보다 크면 어쩔 수 없이 내가 max값이 됨
-# 2번 조건은, 위 왼쪽 살폈을 때 가장 큰거 고르는데, 내가 그것보다 작으면 어쩔 수 없이 내가 min 값이 됨
-# --> 이런방식으로 하면 1번조건과 2번조건 만족하는 루트가 다르다. 그래서 이러면 안되고, 최솟값을 정해서, 
-# 그 최솟값 이하의 숫자로는 지나가지 않도록 하는 방향으로 코딩하자. 
-# 즉, lower bound를 설정하고, 1번조건만 사용해서 코딩하자. 
+INT_MAX = sys.maxsize
+MAX_R = 100
 
-def MaxUpdate(y, x, Dp): 
-    left = Dp[y][x-1] if 0 <= x-1 else float('inf')
-    up = Dp[y-1][x] if 0 <= y-1 else float('inf')
+n = int(input())
+arr = [
+    list(map(int,input().split()))
+    for _ in range(n)
+]
+dp = [
+    [0] * n
+    for _ in range(n)
+]
 
-    # 1번 조건은, 위 왼쪽 살폈을 때 가장 작은거 고르는데, 내가 그것보다 크면 어쩔 수 없이 내가 max값이 됨
-    Dp[y][x] = max(min(left,up), gMap[y][x]) # 이거 시작점이면 inf 나와버림. 그래서 시작점은 제외해야함. 
-    
-ans = float('inf')
+ans = INT_MAX
 
-for lower_bound in range(1, max_number + 1):
-    Dp = [[0] * N for _ in range(N)]
-    
-    for j in range(N):
-         for i in range(N):
-            if gMap[j][i] < lower_bound:
-                Dp[j][i] = float('inf') # 못가는 길은 inf로 만들어라. 
-                
-    Dp[0][0] = gMap[0][0]
-                
-    for j in range(N):
-        for i in range(N):
-            if (j == 0 and i == 0) or Dp[j][i] == float('inf'): # 첫번째 그냥 지나가
-                continue
-            MaxUpdate(j, i, Dp)
+def initialize():
+    # dp를 INT_MAX로 초기화
+    for i in range(n):
+        for j in range(n):
+            dp[i][j] = INT_MAX
 
-    upper_bound = Dp[N-1][N-1]
+    # 시작점 초기화
+    dp[0][0] = arr[0][0]
 
-    real_lower_bound = float('inf') # 진짜 lower bound는 Dp가 Upperbound보다 작거나 같으면서 gMap이 가장 작은 친구임. 이러면 시작점도 포함됨. 
-    for j in range(N):
-        for i in range(N):
-            if Dp[j][i] <= upper_bound:
-                real_lower_bound = min(gMap[j][i], real_lower_bound)
+    # 최좌측 열 초기값
+    for i in range(1,n):
+        dp[i][0] = max(dp[i-1][0], arr[i][0])
 
-    if upper_bound == float('inf'): # 결국 갈 수 있는 길이 없다.
+    # 최상단 행 초기값
+    for j in range(1,n):
+        dp[0][j] = max(dp[0][j-1], arr[0][j])
+
+def solve(lower_bound):
+    # lower_bound 미만의 값은 사용할 수 없도록
+    # arr 값 변경
+    for i in range(n):
+        for j in range(n):
+            if arr[i][j] < lower_bound:
+                arr[i][j] = INT_MAX
+
+    # dp 초기값 설정
+    initialize()
+
+    # 탐색하는 위치의 (위측, 좌측) 값 중 작은값과
+    # 해당 위치의 숫자 중에 최댓값을 구한다
+    for i in range(1,n):
+        for j in range(1,n):
+            dp[i][j] = max(min(dp[i-1][j], dp[i][j-1]), arr[i][j])
+
+    return dp[n-1][n-1]
+
+# main
+# 최솟값을 k 라고 가정했을 때 (최솟값 고정)
+# lower_bound 이상의 수들만 사용하여
+# 이동한다는 조건하에서
+# 최댓값을 최소로 만드는 dp 문제
+for lower_bound in range(1, MAX_R +1):
+    upper_bound = solve(lower_bound)
+
+    # 다 진행했음에도 여전히 INT_MAX라면
+    # 그런 이동이 불가능하다는 뜻 이므로
+    # 패스
+    if upper_bound == INT_MAX:
         continue
 
-    ans = min(ans, upper_bound - real_lower_bound)
+    # 답 갱신
+    ans = min(ans, upper_bound - lower_bound)
+
 print(ans)
