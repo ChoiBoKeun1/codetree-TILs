@@ -3,26 +3,23 @@ arr = [
     list(map(int,input().split()))
     for _ in range(n)
 ]
+# -1 : 방문하지 않았음을 의미
 dp = [
-    [0] * m
+    [-1] * m
     for _ in range(n)
 ]
 
-dp[0][0] = 1
+def dfs(x,y):
+    if dp[x][y] != -1:
+        return dp[x][y]
+    
+    dp[x][y] = 1
 
-for i in range(n):
-    for j in range(m):
-        # 현재 위치가 방문이 가능하다면
-        if arr[i][j] != 0:
-            for x in range(i+1, n):
-                for y in range(j+1, m):
-                    # 점프한 곳의 값이 더 큰 경우
-                    if arr[x][y] > arr[i][j]:
-                        dp[x][y] = max(dp[x][y], dp[i][j]+1)
+    for i in range(x + 1, n):
+        for j in range(y + 1, m):
+            if arr[i][j] > arr[x][y]:  # 점프한 곳의 값이 더 큰 경우
+                dp[x][y] = max(dp[x][y], dfs(i, j) +1)
+    
+    return dp[x][y]
 
-ans = 0
-for i in range(n):
-    for j in range(m):
-        ans = max(ans, dp[i][j])
-
-print(ans)
+print(dfs(0,0))
