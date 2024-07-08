@@ -5,8 +5,8 @@ for _ in range(n):
     x1, x2 = map(int,input().split())
     lines.append((x1,x2))
 
-# 끝점을 기준으로 오름차순 정렬
-lines.sort(key=lambda x: x[1])
+# 시작점 기준으로 오름차순 정렬
+lines.sort()
 
 # dp[i]: i번째 선분까지 고려했을 때 겹치지 않게 선택할 수 있는 선분의 최대 수
 # 초기값 : 1. 최소한 각 선분 자체를 선택할수 있기 때문
