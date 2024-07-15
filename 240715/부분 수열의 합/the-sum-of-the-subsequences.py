@@ -7,10 +7,10 @@ MAX = 10001
 dp = [MAX] * (m+1)
 dp[0] = 0
 
-for i in range(m, -1, -1):
-    for j in range(n):
-        if i >= nums[j]:
-            dp[i] = min(dp[i], dp[i - nums[j]] + 1)
+for i in range(n):
+    for j in range(m, -1, -1):
+        if j >= nums[i]:
+            dp[j] = min(dp[j], dp[j - nums[i]] + 1)
 
 if dp[m] == MAX:
     print('No')
