@@ -17,4 +17,5 @@ for e,t in quests:
         next_exp = min(m, current_exp + e)
         dp[next_exp] = min(dp[next_exp], dp[current_exp] + t)
 
-print(dp[m])
+ans = dp[m] if dp[m] != MAX_T else -1
+print(ans)
