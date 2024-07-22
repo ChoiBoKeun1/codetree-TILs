@@ -6,6 +6,7 @@ nums = list(map(int,input().split()))
 # 전체 합
 total_sum = sum(nums)
 
+# 전체 합이 홀수라면, 절대 sum_A와 sum_B가 같을수 없다.
 if total_sum % 2 != 0:
     print('No')
     sys.exit()
