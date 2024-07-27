@@ -22,4 +22,4 @@ for k in range(2*n):
                 dp[i][j] = max(dp[i][j], dp[i][j-1] + blue)
 
 # 결과 출력
-print(dp[N][N])
+print(dp[n][n])
