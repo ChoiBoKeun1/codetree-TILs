@@ -53,6 +53,6 @@ for i in range(n): # i 번째 날
 ans = 0
 for j in range(3):
     for k in range(3):
-        ans = (ans + dp[n][j][k] % MOD)
+        ans = (ans + dp[n][j][k]) % MOD
 
 print(ans)
