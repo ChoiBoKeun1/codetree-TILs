@@ -6,20 +6,18 @@ nums = list(map(int, input().split()))
 MIN_VAL = float('-inf')
 dp = [[[MIN_VAL] * 2 for _ in range(M + 1)] for _ in range(N + 1)]
 
-# Base case: no intervals, so the sum is 0
-dp[0][0][0] = 0
+# Base case: No intervals
+for i in range(N + 1):
+    dp[i][0][0] = 0
 
 # Fill DP table
 for i in range(1, N + 1):
     for j in range(1, M + 1):
-        # Case where the i-th element is not included in the current interval
+        # When the i-th element is not included in the current interval
         dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1])
         
-        # Case where the i-th element is included in the current interval
-        if j > 1:
-            dp[i][j][1] = max(dp[i-1][j-1][0] + nums[i-1], dp[i-1][j][1] + nums[i-1])
-        else:
-            dp[i][j][1] = dp[i-1][j-1][0] + nums[i-1]
+        # When the i-th element is included in the current interval
+        dp[i][j][1] = max(dp[i-1][j-1][0] + nums[i-1], dp[i-1][j][1] + nums[i-1])
 
 # Find the maximum value for M intervals
 result = max(dp[N][M][0], dp[N][M][1])
