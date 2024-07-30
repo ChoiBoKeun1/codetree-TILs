@@ -1,26 +1,51 @@
-# Read input values
-N, M = map(int, input().split())
-nums = list(map(int, input().split()))
+# 입력
+n, m = map(int, input().split())
+nums = [0] + list(map(int, input().split()))
 
-# Initialize DP table
-MIN_VAL = float('-inf')
-dp = [[[MIN_VAL] * 2 for _ in range(M + 1)] for _ in range(N + 1)]
+MIN_VAL = float('-inf')  # 최소값 설정
 
-# Base case: No intervals
-for i in range(N + 1):
+# DP 테이블
+# dp[i][j][k]는 i번째 원소까지 고려했을 때, 구간이 j개이고
+# 마지막 원소가 k 상태일 때의 최대 구간 총합을 저장하는 테이블
+# k는 0 또는 1로, 0은 마지막 원소가 포함되지 않는 경우, 1은 포함되는 경우
+dp = [
+    [
+        [MIN_VAL] * 2 for _ in range(m + 1)
+    ] 
+    for _ in range(n + 1)
+]
+# 초기화: 구간이 0개일 때 합은 0
+for i in range(n + 1):
     dp[i][0][0] = 0
 
-# Fill DP table
-for i in range(1, N + 1):
-    for j in range(1, M + 1):
-        # When the i-th element is not included in the current interval
+# DP 테이블 채우기
+for i in range(1, n + 1):
+    for j in range(1, m + 1):
+        # 1. i번째 원소를 현재 구간에 포함하지 않는 경우
+        
+        # i-1번째 원소까지 고려했을 때, 구간이 j개인 경우
+        # 마지막 원소가 포함되지 않거나 포함된 경우 중 최대값을 선택
         dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1])
         
-        # When the i-th element is included in the current interval
-        dp[i][j][1] = max(dp[i-1][j-1][0] + nums[i-1], dp[i-1][j][1] + nums[i-1])
+        # 2. i번째 원소를 현재 구간에 포함하는 경우
+        
+        # 2-1. i번째 원소가 새로운 구간의 시작점이 되는 경우와
+        # 2-2. 기존 구간에 포함되는 경우 중 최대값을 선택
+        
+        # 2-1. 이전 구간이랑 인접하지 않아야 하므로
+        # i-1번째 상태(k)가 0 이어야 하고, 새 구간을 만들어내므로
+        # j-1 개의 구간을 선택한 것이된다.
+        # dp[i-1][j-1][0] + nums[i]
 
-# Find the maximum value for M intervals
-result = max(dp[N][M][0], dp[N][M][1])
+        # 2-2. i번째 숫자를 이전 j번째 구간에 포함시키려고 한다면
+        # i-1번째 상태(k)가 1 이어야 하고, 그때까지 j개의 구간이 있어야 한다.
+        # dp[i-1][j][1] + nums[i]
+        dp[i][j][1] = max(dp[i-1][j-1][0] + nums[i], dp[i-1][j][1] + nums[i])
 
-# Output the result
+# 최대 합 구하기
+# n번째 원소까지 고려하고, m개의 구간을 사용할 때
+# 마지막 원소가 포함되거나 포함되지 않은 경우의 최대값을 선택
+result = max(dp[n][m][0], dp[n][m][1])
+
+# 결과 출력
 print(result)
